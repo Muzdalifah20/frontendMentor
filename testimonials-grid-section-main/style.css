@@ -1,0 +1,234 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mozilla+Text:wght@200..700&display=swap");
+:root {
+  --ff: "Barlow Semi Condensed", sans-serif;
+  --fw-500: 500;
+  --fs-20: 1.25rem;
+  --fs-13: 0.8125rem;
+  --fs-11: 0.6875rem;
+  --line-height140: 1.4;
+  --line-height120: 1.2;
+  --line-height110: 1.1;
+
+  --color-Purple-50: hsl(260, 100%, 95%);
+  --color-Purple-300: hsl(264, 82%, 80%);
+  --color-Purple-500: hsl(263, 55%, 52%);
+  --color-White: hsl(0, 0%, 100%);
+  --color-Grey-100: hsl(214, 17%, 92%);
+  --color-Grey-200: hsl(0, 0%, 81%);
+  --color-Grey-400: hsl(224, 10%, 45%);
+  --color-Grey-500: hsl(217, 19%, 35%);
+  --color-Dark-blue: hsl(219, 29%, 14%);
+  --color-Black: hsl(0, 0%, 7%);
+}
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: var(--ff);
+  font-weight: var(--fw-500);
+
+  min-height: 100vh;
+}
+
+/* main {
+  display: grid;
+  place-content: center;
+} */
+
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.mobile-hidden {
+  @media (width < 47.5rem) {
+    display: none;
+  }
+}
+.testimonial {
+}
+
+.wrapper {
+  display: grid;
+  margin-inline: auto;
+  max-width: calc(100% - 35px);
+
+  /* 760px */
+  @media (min-width: 47.5rem) {
+    max-width: calc(100% - 60px);
+  }
+
+  /* 1100px */
+  @media (min-width: 68.75rem) {
+    max-width: 1114px;
+  }
+}
+
+.testimonials {
+  padding-block: 70px;
+  .layout-grid {
+    display: grid;
+
+    gap: 32px;
+
+    @media (min-width: 47.5rem) {
+      padding-block: 80px;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+
+      .purple {
+        grid-column: 1/ 3;
+        grid-row: 1/ 2;
+      }
+      .light-grey {
+        grid-column: 1/ 2;
+        grid-row: 2/ 3;
+      }
+      .white.short {
+        grid-column: 2/ 3;
+        grid-row: 2/ 3;
+      }
+      .dark-blue {
+        grid-column: 1/ 3;
+        grid-row: 3/ 4;
+      }
+      .white.long {
+        grid-column: 1/ 3;
+        grid-row: 4/ 5;
+      }
+    }
+    @media (min-width: 68.75rem) {
+      padding-block: 218px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+
+      .purple {
+        grid-column: 1/ 3;
+        grid-row: 1/ 2;
+      }
+      .light-grey {
+        grid-column: 3/ 4;
+        grid-row: 1/ 2;
+      }
+      .white.short {
+        grid-column: 1/ 2;
+        grid-row: 2/ 3;
+      }
+      .dark-blue {
+        grid-column: 2/ 4;
+        grid-row: 2/ 3;
+      }
+      .white.long {
+        grid-column: 4/ 5;
+        grid-row: 1/ 3;
+      }
+    }
+
+    .testimonial__card {
+      padding: 32px;
+      border-radius: 8px;
+      box-shadow: 1.5rem 2.5rem 1.5rem -0.1rem rgba(0, 0, 40, 0.2);
+    }
+
+    .purple {
+      position: relative;
+      .decorate-quote {
+        color: var(--color-Purple-300);
+        position: absolute;
+        right: 167px;
+        top: 0;
+        z-index: 0;
+      }
+
+      @media (min-width: 68.75rem) {
+        .decorate-quote {
+          right: 60px;
+        }
+      }
+
+      > *:not(.decorate-quote) {
+        position: relative;
+        z-index: 1;
+      }
+      background-color: var(--color-Purple-500);
+      color: var(--color-White);
+
+      .role,
+      .body {
+        color: var(--color-Purple-50);
+      }
+    }
+
+    .light-grey {
+      background-color: var(--color-Grey-500);
+      color: var(--color-White);
+      .role,
+      .body {
+        color: var(--color-Purple-50);
+      }
+    }
+    .white {
+      background-color: var(--color-White);
+      color: var(--color-Grey-500);
+      .role,
+      .body {
+        color: var(--color-Grey-400);
+      }
+    }
+    .dark-blue {
+      background-color: var(--color-Dark-blue);
+      color: var(--color-White);
+      .lead {
+        color: var(--color-Grey-200);
+      }
+
+      .body {
+        color: var(--color-Grey-100);
+      }
+    }
+
+    .author {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 17px;
+      line-height: var(--line-height110);
+    }
+
+    .author-image {
+      width: 28px;
+      border: 2px solid var(--color-Purple-300);
+      border-radius: 50%;
+    }
+
+    .name {
+      font-size: var(--fs-13);
+    }
+
+    .role {
+      font-size: var(--fs-11);
+    }
+
+    .lead {
+      font-size: var(--fs-20);
+      line-height: var(--line-height120);
+      padding-block: 16px;
+    }
+
+    .body {
+      font-size: var(--fs-13);
+      line-height: var(--line-height140);
+    }
+  }
+}
