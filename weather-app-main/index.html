@@ -14,7 +14,6 @@
 
     <title>Frontend Mentor | Weather app</title>
 
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
     <style>
       .attribution {
         font-size: 0.6875rem;
@@ -46,7 +45,7 @@
       </div>
     </header>
 
-    <main id="main" class="wrapper">
+    <main id="main" class="main">
       <section class="hero wrapper">
         <div class="hero__content">
           <h1 class="hero__title">How's the sky looking today?</h1>
@@ -57,56 +56,59 @@
               type="text"
               name="search"
               id="search"
+              placeholder="Search for a place..."
             />
             <button class="hero__button" type="submit">Search</button>
           </div>
         </div>
       </section>
 
-      <section class="current">
+      <section class="current wrapper">
         <h2 class="visually-hidden">Current Location Temperature</h2>
         <div class="current__weather">
           <div class="current__location">
             <div class="current__city">Berlin, Germany</div>
             <div class="current__date">Tuesday, Aug 5, 2025</div>
           </div>
-          <div class="current__icon">
+          <div class="current__info">
             <img
+              class="current__icon"
               src="./assets/images/icon-sunny.webp"
               alt=""
               width="320"
               height="320"
             />
+            <div class="current__temp"><span>20</span>&deg;</div>
           </div>
-          <div class="current__temp"><span>20</span>&deg;</div>
         </div>
 
         <div class="current__conditions">
-          <div class="current__condition">
+          <div class="block current__condition">
             <p id="feelslike" class="current__condition-title">Feels like</p>
             <p class="current__condition-value">18&deg;</p>
           </div>
-          <div class="current__condition">
+          <div class="block current__condition">
             <p class="current__condition-title">Humidity</p>
             <p id="humidity" class="current__condition-value">46%</p>
           </div>
-          <div class="current__condition">
+          <div class="block current__condition">
             <p class="current__condition-title">Wind</p>
             <p id="wind" class="current__condition-value">14 km/h</p>
           </div>
-          <div class="current__condition">
+          <div class="block current__condition">
             <p class="current__condition-title">Precipitation</p>
             <p id="precipitation" class="current__condition-value">0 mm</p>
           </div>
         </div>
       </section>
 
-      <section class="daily">
+      <section class="daily wrapper">
         <h2 class="section__title daily__title">Daily Forecast</h2>
         <div class="daily__forecast">
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <img
+              class="daily__day-icon"
               src="./assets/images/icon-rain.webp"
               alt=""
               width="320"
@@ -117,9 +119,10 @@
               <p class="daily__day-low">14&deg;</p>
             </div>
           </div>
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <img
+              class="daily__day-icon"
               src="./assets/images/icon-rain.webp"
               alt=""
               width="320"
@@ -130,9 +133,10 @@
               <p class="daily__day-low">14&deg;</p>
             </div>
           </div>
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <img
+              class="daily__day-icon"
               src="./assets/images/icon-rain.webp"
               alt=""
               width="320"
@@ -143,9 +147,10 @@
               <p class="daily__day-low">14&deg;</p>
             </div>
           </div>
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <img
+              class="daily__day-icon"
               src="./assets/images/icon-rain.webp"
               alt=""
               width="320"
@@ -156,9 +161,10 @@
               <p class="daily__day-low">14&deg;</p>
             </div>
           </div>
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <img
+              class="daily__day-icon"
               src="./assets/images/icon-rain.webp"
               alt=""
               width="320"
@@ -169,9 +175,10 @@
               <p class="daily__day-low">14&deg;</p>
             </div>
           </div>
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <img
+              class="daily__day-icon"
               src="./assets/images/icon-rain.webp"
               alt=""
               width="320"
@@ -182,9 +189,10 @@
               <p class="daily__day-low">14&deg;</p>
             </div>
           </div>
-          <div class="daily__day">
+          <div class="block daily__day">
             <p class="daily__day-title">Tue</p>
             <img
+              class="daily__day-icon"
               src="./assets/images/icon-rain.webp"
               alt=""
               width="320"
@@ -198,7 +206,7 @@
         </div>
       </section>
 
-      <section class="hourly">
+      <section class="hourly wrapper">
         <div class="hourly__header">
           <h2 class="section__title daily__title">Hourly forecast</h2>
           <select name="hourly-day" id="hourlyDay">
