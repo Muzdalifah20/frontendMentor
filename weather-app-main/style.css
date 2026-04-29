@@ -124,6 +124,7 @@
     background-color: var(--color-main-bg);
     color: var(--color-text-light);
     line-height: 1.2;
+    margin-bottom: 4rem;
   }
 
   h1 {
@@ -175,7 +176,24 @@
 
   .main {
     display: grid;
-    gap: 32px;
+    row-gap: 32px;
+
+    .dashboard {
+      display: grid;
+      gap: 32px;
+      grid-template-areas:
+        "current"
+        "daily"
+        "hourly";
+
+      @media (width >= calc(1000 / 16 * 1rem)) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+          "current current hourly"
+          "daily daily hourly";
+        gap: 48px 32px;
+      }
+    }
   }
 
   .block {
@@ -220,14 +238,20 @@
       margin-block-end: 48px;
       text-align: center;
       line-height: 1.2;
-      @media (width >= calc(700 / 16 * 1rem)) {
+      @media (width <= calc(1000 / 16 * 1rem)) {
         max-width: 15ch;
       }
     }
+
     .hero__search {
       display: grid;
       gap: 12px 16px;
       width: 100%;
+      max-width: calc(656 / 16 * 1rem);
+
+      @media (width >= calc(700 / 16 * 1rem)) {
+        grid-template-columns: 1fr auto;
+      }
     }
 
     .hero__textbox {
@@ -254,7 +278,7 @@
       color: var(--color-text-light);
       font-size: var(--font-size-search);
       border-radius: 12px;
-      padding-block: 16px;
+      padding: 16px 24px;
       transition: background 120ms ease-in-out;
       cursor: pointer;
 
@@ -265,6 +289,7 @@
   }
 
   .current {
+    grid-area: current;
     .current__weather {
       display: flex;
       flex-direction: column;
@@ -346,6 +371,7 @@
   }
 
   .daily {
+    grid-area: daily;
     .daily__title {
       font-size: var(--font-size-forecast-title);
       margin-block-end: 20px;
@@ -387,6 +413,61 @@
 
     .daily__day-low {
       color: var(--color-text-med-light);
+    }
+  }
+
+  .hourly {
+    grid-area: hourly;
+    .hourly__content {
+      background-color: var(--color-panel-bg-dark);
+      border-radius: 20px;
+      border: none;
+      padding: 20px 16px;
+    }
+
+    .hourly__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-block-end: 16px;
+    }
+
+    .hourly__title {
+      font-size: var(--font-size-forecast-title);
+      font-weight: 600;
+    }
+
+    .hourly-select-day {
+    }
+
+    .hourly__hours {
+      display: grid;
+      gap: 16px;
+    }
+
+    .hourly__hour {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--color-panel-bg-med);
+      border: 1px solid var(--color-panel-border);
+      border-radius: 8px;
+      padding: 10px 16px 10px 12px;
+    }
+
+    .hourly__hour-icon {
+      width: 40px;
+      height: auto;
+    }
+
+    .hourly__hour-time {
+      font-size: var(--font-size-forecast-hour);
+    }
+
+    .hourly__hour-temp {
+      justify-self: self-end;
+      font-size: var(--font-size-forecast-temp);
     }
   }
 }
