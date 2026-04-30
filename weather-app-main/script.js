@@ -6,11 +6,12 @@ const pFeelslike = document.querySelector("#pFeelslike");
 const pHumidity = document.querySelector("#pHumidity");
 const pWind = document.querySelector("#pWind");
 const pPrecipitation = document.querySelector("#pPrecipitation");
+const dvForecastDay1 = document.querySelector("#dvForecastDay1");
 
 let cityName, countryName;
 
 async function getGeoData() {
-  let search = "los angeles";
+  let search = "Cairo, egypt";
   const url =
     "https://corsproxy.io/?" +
     encodeURIComponent(
@@ -42,14 +43,13 @@ function loadLocationData(locationData) {
     countryName = location.country_code.toUpperCase();
   }
 
-  let options = {
+  let dateOptions = {
     weekday: "long",
     year: "numeric",
     month: "short",
     day: "numeric",
   };
-
-  let date = new Intl.DateTimeFormat("en-US", options).format(new Date());
+  let date = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
 
   console.log(cityName, countryName, date);
 
@@ -83,13 +83,14 @@ async function getWeatherData(lat, lon) {
     }
     const result = await response.json();
     console.log(result);
-    loadWeatherData(result);
+    loadCurrentWeather(result);
+    loadDailyForecast(result);
   } catch (error) {
     console.error(error.message);
   }
 }
 
-function loadWeatherData(weather) {
+function loadCurrentWeather(weather) {
   dvCurrTemp.textContent = `${Math.round(weather.current.temperature_2m)}`;
   pFeelslike.textContent = Math.round(weather.current.apparent_temperature);
   pHumidity.textContent = Math.round(weather.current.relative_humidity_2m);
@@ -97,23 +98,131 @@ function loadWeatherData(weather) {
   pPrecipitation.textContent = `${Math.round(weather.current.precipitation)} ${weather.current_units.precipitation.replace(/[/]/g, "")}`;
 }
 
+function loadDailyForecast(weather) {
+  let daily = weather.daily;
+
+  for (let i = 0; i < 7; i++) {
+    let date = new Date(daily.time[i]);
+    let dayOfWeek = new Intl.DateTimeFormat("en-US", {
+      weekday: "short",
+    }).format(date);
+    let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`);
+
+    let weatherCode = daily.weather_code[i];
+    console.log(weatherCode);
+
+    // let dvDailyTemps = document
+    //   .createElement("div")
+    //   .className("daily__day-temps");
+    // let dvday = document.querySelector(`#dvForecastDay${i + 1} .daily__day-title`);
+    // console.log(dvday);
+    // dvday.textContent = dayOfWeek;
+
+    // const newDayofWeek = document.createElement("p");
+    // newDayofWeek.className = "daily__day-title";
+    // newDayofWeek.textContent = dayOfWeek;
+    // dvForecastDay.insertAdjacentElement("afterbegin", newDayofWeek);
+    // dvForecastDay.appendChild(newDayofWeek);
+
+    // add content
+    addDailyElement(
+      "p",
+      "daily__day-title",
+      dayOfWeek,
+      dvForecastDay,
+      "afterbegin",
+    );
+    addDailyElement(
+      "img",
+      "daily__day-icon",
+      "",
+      dvForecastDay,
+      "beforeend",
+      getWeatherFileName(weatherCode),
+    );
+    // addDailyElement(
+    //   "div",
+    //   "daily__day-temps",
+    //   "",
+    //   dvForecastDay,
+    //   "beforeend",
+    //   "",
+    // );
+    // addDailyElement(
+    //   "p",
+    //   "daily__day-high",
+    //   "",
+    //   "daily__day-temps",
+    //   "beforeend",
+    //   "",
+    // );
+  }
+}
+
+function addDailyElement(
+  tag,
+  className,
+  Content,
+  parentElement,
+  position,
+  fileName,
+) {
+  const newElement = document.createElement(tag);
+  newElement.className = className;
+  if (Content !== "") {
+    newElement.textContent = Content;
+  }
+  if (tag === "img") {
+    newElement.setAttribute("src", fileName);
+  }
+  parentElement.insertAdjacentElement(position, newElement);
+}
+
 function getWeatherFileName(code) {
-  //51, 53, 55, 56, 57 -- drizzle
-  // 45, 48 --  fog
-  //3 overcast
+  // 0 --  sunny
   // 1, 2  -- partly-cloudy
-  //61, 63, 65, 66, 67, 80, 81, 82 -- rain
-  //71, 73, 75, 77 , 85, 86--  snow
-  //95, 96, 99 storm
-  //0 --  sunny
+  // 3 overcast
+  // 45, 48 --  fog
+  // 51, 53, 55, 56, 57 -- drizzle
+  // 61, 63, 65, 66, 67, 80, 81, 82 -- rain
+  // 71, 73, 75, 77 , 85, 86--  snow
+  // 95, 96, 99 storm
 
   const weatherCodes = {
     0: "sunny",
     1: "partly-cloudy",
+    2: "partly-cloudy",
+    3: "overcast",
+    45: "fog",
+    48: "fog",
+    51: "drizzle",
+    53: "drizzle",
+    55: "drizzle",
+    56: "drizzle",
+    57: "drizzle",
+    61: "rain",
+    63: "rain",
+    65: "rain",
+    66: "rain",
+    67: "rain",
+    80: "rain",
+    81: "rain",
+    82: "rain",
+    71: "snow",
+    73: "snow",
+    75: "snow",
+    77: "snow",
+    85: "snow",
+    86: "snow",
+    95: "storm",
+    96: "storm",
+    99: "storm",
   };
 
-  return weatherCodes[code];
+  let fileName = `./assets/images/icon-${weatherCodes[code]}.webp`;
+  return fileName;
 }
 
+console.log(getWeatherFileName(75));
 getGeoData();
 getWeatherData();
