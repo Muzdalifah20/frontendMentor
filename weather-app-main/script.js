@@ -85,6 +85,7 @@ async function getWeatherData(lat, lon) {
     console.log(result);
     loadCurrentWeather(result);
     loadDailyForecast(result);
+    loadHourlyForecast(result);
   } catch (error) {
     console.error(error.message);
   }
@@ -107,22 +108,10 @@ function loadDailyForecast(weather) {
       weekday: "short",
     }).format(date);
     let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`);
-
-    let weatherCode = daily.weather_code[i];
-    console.log(weatherCode);
-
-    // let dvDailyTemps = document
-    //   .createElement("div")
-    //   .className("daily__day-temps");
-    // let dvday = document.querySelector(`#dvForecastDay${i + 1} .daily__day-title`);
-    // console.log(dvday);
-    // dvday.textContent = dayOfWeek;
-
-    // const newDayofWeek = document.createElement("p");
-    // newDayofWeek.className = "daily__day-title";
-    // newDayofWeek.textContent = dayOfWeek;
-    // dvForecastDay.insertAdjacentElement("afterbegin", newDayofWeek);
-    // dvForecastDay.appendChild(newDayofWeek);
+    let weatherCodeName = getWeatherCodeName(daily.weather_code[i]);
+    let imgFilePath = `./assets/images/icon-${weatherCodeName}.webp`;
+    let dailyHigh = Math.round(daily.temperature_2m_max[i]);
+    let dailyLow = `${Math.round(daily.temperature_2m_min[i])} `;
 
     // add content
     addDailyElement(
@@ -131,6 +120,7 @@ function loadDailyForecast(weather) {
       dayOfWeek,
       dvForecastDay,
       "afterbegin",
+      "",
     );
     addDailyElement(
       "img",
@@ -138,24 +128,38 @@ function loadDailyForecast(weather) {
       "",
       dvForecastDay,
       "beforeend",
-      getWeatherFileName(weatherCode),
+      imgFilePath,
+      weatherCodeName,
     );
-    // addDailyElement(
-    //   "div",
-    //   "daily__day-temps",
-    //   "",
-    //   dvForecastDay,
-    //   "beforeend",
-    //   "",
-    // );
-    // addDailyElement(
-    //   "p",
-    //   "daily__day-high",
-    //   "",
-    //   "daily__day-temps",
-    //   "beforeend",
-    //   "",
-    // );
+    addDailyElement(
+      "div",
+      "daily__day-temps",
+      "",
+      dvForecastDay,
+      "beforeend",
+      "",
+      "",
+    );
+    let dvDailyDayTemps = dvForecastDay.querySelector(".daily__day-temps");
+
+    addDailyElement(
+      "p",
+      "daily__day-high",
+      `${dailyHigh}°`,
+      dvDailyDayTemps,
+      "afterbegin",
+      "",
+      "",
+    );
+    addDailyElement(
+      "p",
+      "daily__day-low",
+      `${dailyLow}°`,
+      dvDailyDayTemps,
+      "beforeend",
+      "",
+      "",
+    );
   }
 }
 
@@ -165,7 +169,8 @@ function addDailyElement(
   Content,
   parentElement,
   position,
-  fileName,
+  filePath,
+  altDescription,
 ) {
   const newElement = document.createElement(tag);
   newElement.className = className;
@@ -173,12 +178,36 @@ function addDailyElement(
     newElement.textContent = Content;
   }
   if (tag === "img") {
-    newElement.setAttribute("src", fileName);
+    newElement.setAttribute("src", filePath);
+    newElement.setAttribute("alt", altDescription);
+    newElement.setAttribute("width", "320");
+    newElement.setAttribute("height", "320");
   }
   parentElement.insertAdjacentElement(position, newElement);
 }
 
-function getWeatherFileName(code) {
+function loadHourlyForecast(weather) {
+  // "2026-05-01T00:00"
+  let dateOptions = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  };
+  let date = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
+  let currDate = new Date();
+  // console.log(currDate.setDate(currDate.getDate()));
+
+  for (let i = 1; i < 7; i++) {
+    let nextdate = currDate.setDate(currDate.getDate() + 1);
+    let year = currDate.getFullYear().toString();
+    let month = currDate.getMonth().toString().padStart(2, "0");
+    let date = currDate.getDate().toString().padStart(2, "0");
+    let formatted = `${year}-${month}-${date}`;
+    console.log(formatted);
+  }
+}
+
+function getWeatherCodeName(code) {
   // 0 --  sunny
   // 1, 2  -- partly-cloudy
   // 3 overcast
@@ -219,10 +248,8 @@ function getWeatherFileName(code) {
     99: "storm",
   };
 
-  let fileName = `./assets/images/icon-${weatherCodes[code]}.webp`;
-  return fileName;
+  let codeName = weatherCodes[code];
+  return codeName;
 }
 
-console.log(getWeatherFileName(75));
 getGeoData();
-getWeatherData();
