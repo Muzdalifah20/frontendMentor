@@ -436,9 +436,9 @@
     .hourly__content {
       height: 60vh;
       overflow-y: scroll;
-      scrollbar-width: 30px;
+      scrollbar-width: thin;
       scrollbar-color: var(--color-text-med-light);
-      background-color: var(--color-panel-bg-dark);
+
       border-radius: 20px;
       border: none;
       padding: 20px 16px;
