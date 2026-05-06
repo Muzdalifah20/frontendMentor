@@ -40,7 +40,7 @@
           />
         </a>
 
-        <select name="units" id="ddlUnits" class="header__dropdown">
+        <select name="units" id="ddlUnits" class="dropdown header__dropdown">
           <option value="">units</option>
           <option value="C">Celsius</option>
           <option value="F">Fahrenheit</option>
@@ -58,10 +58,12 @@
               class="hero__textbox"
               type="text"
               name="search"
-              id="search"
+              id="textSearch"
               placeholder="Search for a place..."
             />
-            <button class="hero__button" type="submit">Search</button>
+            <button id="btnSearch" class="hero__button" type="submit">
+              Search
+            </button>
           </div>
         </div>
       </section>
@@ -133,13 +135,39 @@
           <div class="hourly__content">
             <div class="hourly__header">
               <h2 class="section__title hourly__title">Hourly forecast</h2>
-              <select name="hourly-select-day" id="hourlyDay">
-                <option value="">Tuesday</option>
-              </select>
+              <select
+                name="hourly-select-day"
+                id="ddLDay"
+                class="dropdown hourly__select"
+              ></select>
             </div>
 
             <div class="hourly__hours">
-              <div class="hourly__hour">
+              <div id="dvForecastHour1" class="hourly__hour"></div>
+              <div id="dvForecastHour2" class="hourly__hour"></div>
+              <div id="dvForecastHour3" class="hourly__hour"></div>
+              <div id="dvForecastHour4" class="hourly__hour"></div>
+              <div id="dvForecastHour5" class="hourly__hour"></div>
+              <div id="dvForecastHour6" class="hourly__hour"></div>
+              <div id="dvForecastHour7" class="hourly__hour"></div>
+              <div id="dvForecastHour8" class="hourly__hour"></div>
+              <div id="dvForecastHour9" class="hourly__hour"></div>
+              <div id="dvForecastHour10" class="hourly__hour"></div>
+              <div id="dvForecastHour11" class="hourly__hour"></div>
+              <div id="dvForecastHour12" class="hourly__hour"></div>
+              <div id="dvForecastHour13" class="hourly__hour"></div>
+              <div id="dvForecastHour14" class="hourly__hour"></div>
+              <div id="dvForecastHour15" class="hourly__hour"></div>
+              <div id="dvForecastHour16" class="hourly__hour"></div>
+              <div id="dvForecastHour17" class="hourly__hour"></div>
+              <div id="dvForecastHour18" class="hourly__hour"></div>
+              <div id="dvForecastHour19" class="hourly__hour"></div>
+              <div id="dvForecastHour20" class="hourly__hour"></div>
+              <div id="dvForecastHour21" class="hourly__hour"></div>
+              <div id="dvForecastHour22" class="hourly__hour"></div>
+              <div id="dvForecastHour23" class="hourly__hour"></div>
+              <div id="dvForecastHour24" class="hourly__hour"></div>
+              <!-- <div class="hourly__hour">
                 <img
                   src="./assets/images/icon-fog.webp"
                   alt=""
@@ -215,18 +243,7 @@
                 />
                 <p class="hourly__hour-time">3 PM</p>
                 <p class="hourly__hour-temp">20&deg;</p>
-              </div>
-              <div class="hourly__hour">
-                <img
-                  src="./assets/images/icon-fog.webp"
-                  alt=""
-                  class="hourly__hour-icon"
-                  width="40"
-                  height="40"
-                />
-                <p class="hourly__hour-time">3 PM</p>
-                <p class="hourly__hour-temp">20&deg;</p>
-              </div>
+              </div> -->
             </div>
           </div>
         </section>

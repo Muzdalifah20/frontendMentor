@@ -2,35 +2,36 @@ const ddlUnits = document.querySelector("#ddlUnits");
 const dvCityCountry = document.querySelector("#dvCityCountry");
 const dvCurrDate = document.querySelector("#dvCurrDate");
 const dvCurrTemp = document.querySelector("#dvCurrTemp");
+const ddLDay = document.querySelector("#ddLDay");
 const pFeelslike = document.querySelector("#pFeelslike");
 const pHumidity = document.querySelector("#pHumidity");
 const pWind = document.querySelector("#pWind");
 const pPrecipitation = document.querySelector("#pPrecipitation");
 const dvForecastDay1 = document.querySelector("#dvForecastDay1");
+const btnSearch = document.querySelector("#btnSearch");
+const textSearch = document.querySelector("#textSearch");
 
-let cityName, countryName;
+let cityName, countryName, weatherData;
 
 async function getGeoData() {
-  let search = "Cairo, egypt";
-  const url =
-    "https://corsproxy.io/?" +
-    encodeURIComponent(
-      `https://nominatim.openstreetmap.org/search?q=${search}&format=jsonv2&addressdetails=1`,
-    );
+  let search = textSearch.value || "berlin, germany";
+  console.log(search);
+  const url = `https://nominatim.openstreetmap.org/search?q=${search}&format=jsonv2&addressdetails=1`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const result = await response.json();
+    console.log(result);
     let lat = result[0].lat;
     let lon = result[0].lon;
 
     loadLocationData(result);
     getWeatherData(lat, lon);
-    console.log(result);
+    // console.log(result);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
 }
 
@@ -81,11 +82,11 @@ async function getWeatherData(lat, lon) {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    const result = await response.json();
-    console.log(result);
-    loadCurrentWeather(result);
-    loadDailyForecast(result);
-    loadHourlyForecast(result);
+    weatherData = await response.json();
+
+    loadCurrentWeather(weatherData);
+    loadDailyForecast(weatherData);
+    loadHourlyForecast(weatherData);
   } catch (error) {
     console.error(error.message);
   }
@@ -108,6 +109,9 @@ function loadDailyForecast(weather) {
       weekday: "short",
     }).format(date);
     let dvForecastDay = document.querySelector(`#dvForecastDay${i + 1}`);
+    while (dvForecastDay.firstChild) {
+      dvForecastDay.removeChild(dvForecastDay.firstChild);
+    }
     let weatherCodeName = getWeatherCodeName(daily.weather_code[i]);
     let imgFilePath = `./assets/images/icon-${weatherCodeName}.webp`;
     let dailyHigh = Math.round(daily.temperature_2m_max[i]);
@@ -142,6 +146,10 @@ function loadDailyForecast(weather) {
     );
     let dvDailyDayTemps = dvForecastDay.querySelector(".daily__day-temps");
 
+    while (dvDailyDayTemps.firstChild) {
+      dvDailyDayTemps.removeChild(dvDailyDayTemps.firstChild);
+    }
+
     addDailyElement(
       "p",
       "daily__day-high",
@@ -172,6 +180,10 @@ function addDailyElement(
   filePath,
   altDescription,
 ) {
+  if (!parentElement) {
+    console.warn("Parent element missing, skipping");
+    return;
+  }
   const newElement = document.createElement(tag);
   newElement.className = className;
   if (Content !== "") {
@@ -183,27 +195,63 @@ function addDailyElement(
     newElement.setAttribute("width", "320");
     newElement.setAttribute("height", "320");
   }
+
   parentElement.insertAdjacentElement(position, newElement);
 }
 
 function loadHourlyForecast(weather) {
-  // "2026-05-01T00:00"
-  let dateOptions = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  };
-  let date = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date());
-  let currDate = new Date();
-  // console.log(currDate.setDate(currDate.getDate()));
+  let dayIndex = parseInt(ddLDay.value, 10);
+  console.log(dayIndex + 1);
+  let weatherCodes = weather.hourly.weather_code;
+  let hours = weather.hourly.time;
+  let temps = weather.hourly.temperature_2m;
+  let firstHour = 24 * dayIndex;
+  let lastHour = 24 * (dayIndex + 1) - 1;
+  let id = 0;
+  for (let h = firstHour; h <= lastHour; h++) {
+    let weatherCodeName = getWeatherCodeName(weatherCodes[h]);
+    let imgFilePath = `./assets/images/icon-${weatherCodeName}.webp`;
+    let temp = Math.round(temps[h]) + "°";
+    let hour = new Date(hours[h]).toLocaleString("en-US", {
+      hour: "numeric",
+      hour12: true,
+    });
 
-  for (let i = 1; i < 7; i++) {
-    let nextdate = currDate.setDate(currDate.getDate() + 1);
-    let year = currDate.getFullYear().toString();
-    let month = currDate.getMonth().toString().padStart(2, "0");
-    let date = currDate.getDate().toString().padStart(2, "0");
-    let formatted = `${year}-${month}-${date}`;
-    console.log(formatted);
+    let dvForecastHour = document.querySelector(`#dvForecastHour${id + 1}`);
+
+    while (dvForecastHour.firstChild) {
+      dvForecastHour.removeChild(dvForecastHour.firstChild);
+    }
+
+    addDailyElement(
+      "img",
+      "hourly__hour-icon",
+      "",
+      dvForecastHour,
+      "afterbegin",
+      imgFilePath,
+      weatherCodeName,
+    );
+    addDailyElement(
+      "p",
+      "hourly__hour-time",
+      hour,
+      dvForecastHour,
+      "beforeend",
+      "",
+      "",
+    );
+    addDailyElement(
+      "p",
+      "hourly__hour-temp",
+      temp,
+      dvForecastHour,
+      "beforeend",
+      "",
+      "",
+    );
+
+    id++;
   }
 }
 
@@ -252,4 +300,28 @@ function getWeatherCodeName(code) {
   return codeName;
 }
 
+function populateDayOfWeek() {
+  let currDate = new Date();
+
+  for (let i = 0; i < 7; i++) {
+    const formatted = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+    }).format(currDate);
+
+    const newOption = document.createElement("option");
+    newOption.setAttribute("class", "hourly__select-day");
+    newOption.value = i;
+    newOption.textContent = formatted;
+    ddLDay.insertAdjacentElement("beforeend", newOption);
+    currDate.setDate(currDate.getDate() + 1);
+  }
+}
+
+populateDayOfWeek();
 getGeoData();
+
+btnSearch.addEventListener("click", getGeoData);
+ddlUnits.addEventListener("change", getGeoData);
+ddLDay.addEventListener("change", (e) => {
+  loadHourlyForecast(weatherData);
+});

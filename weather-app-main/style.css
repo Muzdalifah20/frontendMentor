@@ -192,8 +192,17 @@
           "current current hourly"
           "daily daily hourly";
         gap: 48px 32px;
+        border-radius: 8px;
       }
     }
+  }
+
+  .dropdown {
+    background-color: var(--color-panel-bg-dark);
+
+    color: var(--color-text-light);
+    border: 0;
+    font: inherit;
   }
 
   .block {
@@ -224,6 +233,10 @@
     }
 
     .header__dropdown {
+      background-image: url("./assets/images/icon-units.svg");
+      background-repeat: no-repeat;
+      background-position: 16px center;
+      padding: 12px 38px;
     }
   }
 
@@ -417,16 +430,28 @@
   }
 
   .hourly {
+    position: relative;
     grid-area: hourly;
+
     .hourly__content {
+      height: 60vh;
+      overflow-y: scroll;
+      scrollbar-width: 30px;
+      scrollbar-color: var(--color-text-med-light);
       background-color: var(--color-panel-bg-dark);
       border-radius: 20px;
       border: none;
       padding: 20px 16px;
+
+      @media (width > calc( 1000 / 16 * 1rem)) {
+        position: absolute;
+        height: 100%;
+      }
     }
 
     .hourly__header {
       display: flex;
+      gap: 40px;
       justify-content: space-between;
       align-items: center;
       margin-block-end: 16px;
@@ -437,7 +462,14 @@
       font-weight: 600;
     }
 
+    .hourly__select {
+      background-color: var(--color-panel-bg-light);
+      padding: 8px 16px;
+    }
+
     .hourly-select-day {
+      padding: 10px;
+      font-size: var(--font-size-forecast-hour);
     }
 
     .hourly__hours {
