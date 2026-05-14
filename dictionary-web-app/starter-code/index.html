@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="./style.css" />
+
+    <title>Frontend Mentor | Dictionary web app</title>
+  </head>
+  <body>
+    <a href="#main" class="visually-hidden skip-link">Skip to main content</a>
+    <header class="header">
+      <div class="wrapper header__content">
+        <a href="/starter-code/">
+          <img
+            src="./assets/images/logo.svg"
+            alt="Dictionary Home"
+            class="logo"
+            width="34"
+            height="38"
+          />
+        </a>
+        <div class="header__select">
+          <select name="fonts" id="ddFonts" class="dropdown header__dropdown">
+            <option value="sans">Sans Serif</option>
+            <option value="serif">Serif</option>
+            <option value="mono">Mono</option>
+          </select>
+        </div>
+      </div>
+    </header>
+    <main class="main wrapper" id="main">
+      <section class="hero">
+        <div class="hero__content">
+          <input
+            type="text"
+            class="hero__search"
+            placeholder="Search for any word..."
+          />
+          <div class="hero__word-info">
+            <div>
+              <h1 class="hero__word-info-word">keyboard</h1>
+              <p class="hero__word-info-phonotic">/'ki:bɔ:d/</p>
+            </div>
+            <button class="play-button">
+              <img
+                src="./assets/images/icon-play.svg"
+                alt="play icon"
+                width="75"
+                height="75"
+              />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="noun">
+        <div class="noun__content">
+          <h2 class="part-speach">noun</h2>
+          <h3 class="meaning">Meaning</h3>
+          <ul class="meaning__list">
+            <li>
+              (etc.) A set of keys used to operate a typewriter, computer etc.
+            </li>
+            <li>
+              A component of many instruments including the piano, organ, and
+              harpsichord consisting of usually black and white keys that cause
+              different tones to be produced when struck.
+            </li>
+            <li>
+              A device with keys of a musical keyboard, used to control
+              electronic sound-producing devices which may be built into or
+              separate from the keyboard device.
+            </li>
+          </ul>
+          <div class="noun__synonyms">
+            <h3 class="noun__synonyms-word">Synonyms</h3>
+            <a href="" class="noun__synonyms-elect">electronic keyboard</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="verb">
+        <div class="verb__content">
+          <h2 class="part-speach">verb</h2>
+          <h3 class="meaning">Meaning</h3>
+
+          <ul class="meaning__list">
+            <div>
+              <li>To type on a computer keyboard.</li>
+              <span class="example"
+                >“Keyboarding is the part of this job I hate the most.”</span
+              >
+            </div>
+          </ul>
+        </div>
+      </section>
+
+      <section class="sources">
+        <div class="sources__content">
+          <h3 class="sources__title">Source</h3>
+          <div class="sources__link">
+            <a href="">https://en.wiktionary.org/wiki/keyboard</a>
+            <img src="./assets/images/icon-new-window.svg" alt="" />
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
