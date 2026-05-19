@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./style.css" />
 
     <title>Frontend Mentor | Dictionary web app</title>
+    <script src="./script.js" defer></script>
   </head>
   <body>
     <a href="#main" class="visually-hidden skip-link">Skip to main content</a>
@@ -34,14 +35,19 @@
             <option value="serif">Serif</option>
             <option value="mono">Mono</option>
           </select>
-          <fieldset aria-label="theme toggle" role="radiogroup">
-            <span class="toggle__wrapper">
+          <fieldset
+            aria-label="theme toggle"
+            role="radiogroup"
+            class="header__toggle"
+          >
+            <div class="header__toggle-wrapper">
               <input type="radio" name="theme" id="light" checked />
               <input type="radio" name="theme" id="dark" />
-              <span aria-hidden="true" class="toggle__background"></span>
-              <span aria-hidden="true" class="toggle__switcher"></span>
-            </span>
+              <span aria-hidden="true" class="header__toggle-background"></span>
+              <span aria-hidden="true" class="header__toggle-button"></span>
+            </div>
             <svg
+              class="header__toggle-svg"
               width="22"
               height="22"
               viewBox="0 0 22 22"
