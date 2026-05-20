@@ -393,11 +393,13 @@
     }
 
     .header__dropdown {
+      position: relative;
       color: var(--color-dropdown-text);
       background-color: var(--color-dropdown-bg);
       font-size: var(--font-size-dropdown);
       line-height: var(--line-height-dropdown);
       border: none;
+      cursor: pointer;
       /* -moz-appearance: none;
       -webkit-appearance: none;
       appearance: none;
@@ -409,9 +411,11 @@
     }
 
     .header__dropdown option {
+      position: absolute;
       font-size: var(--font-size-dropdown);
       line-height: var(--line-height-dropdown);
-      padding-left: 24px;
+      padding-block: 24px;
+      padding-inline: 24px 69px;
       cursor: pointer;
     }
     .header__dropdown option:hover,

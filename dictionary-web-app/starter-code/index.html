@@ -92,10 +92,11 @@
           />
           <div class="hero__word-info">
             <div>
-              <h1 class="hero__word-info-word">keyboard</h1>
-              <p class="hero__word-info-phonotic">/'ki:bɔ:d/</p>
+              <h1 id="wordTitle" class="hero__word-info-word">keyboard</h1>
+              <p id="phonotic" class="hero__word-info-phonotic">/'ki:bɔ:d/</p>
             </div>
-            <button class="play-button">
+            <audio id="wordAudio" src=""></audio>
+            <button id="audioBtn" class="play-button">
               <svg
                 class="play-button-svg"
                 width="48"
@@ -163,8 +164,14 @@
         <div class="source__content">
           <h3 class="source__title">Source</h3>
           <div class="source__link">
-            <a href="">https://en.wiktionary.org/wiki/keyboard</a>
-            <img src="./assets/images/icon-new-window.svg" alt="" />
+            <a id="souceLink" href="" target="_blank"
+              >https://en.wiktionary.org/wiki/keyboard</a
+            >
+            <img
+              id="sourceWindow"
+              src="./assets/images/icon-new-window.svg"
+              alt="click me"
+            />
           </div>
         </div>
       </section>
