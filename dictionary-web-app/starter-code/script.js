@@ -10,6 +10,7 @@ const wordAudio = document.querySelector("#wordAudio");
 const audioBtn = document.querySelector("#audioBtn");
 const sourceWindow = document.querySelector("#sourceWindow");
 const souceLink = document.querySelector("#souceLink");
+const meaningsSect = document.querySelector("#meaningsSect");
 console.log();
 
 themes.forEach((theme) => {
@@ -61,8 +62,9 @@ async function getWordData() {
     const wordResult = result[0];
 
     getPronounciation(wordResult);
+    getMeanings(wordResult);
     loadSource(wordResult);
-    console.log(result[0]);
+    // console.log(result[0]);
   } catch (error) {
     console.error(error);
   }
@@ -103,8 +105,71 @@ function loadSource(result) {
   souceLink.textContent = source;
 }
 
-loadWordInfo();
+function getMeanings(result) {
+  const meanings = result.meanings;
+  meanings.forEach((meaning) => {
+    const partOfSpeach = meaning.partOfSpeach;
+    addMeaningElement("div", "part-speach-dv", "", meaningsSect);
+    const partSpeachDv = document.querySelector(".part-speach-dv");
+    addMeaningElement("h2", "part-speach", partOfSpeach, partSpeachDv);
+    addMeaningElement("h3", "meaning", "Meaning", partSpeachDv);
+    addMeaningElement("ul", "meaning__list", "", partSpeachDv);
+    const meaningListUl = partSpeachDv.querySelector(".meaning__list");
+    // const meaningListUl = partSpeachDv.querySelector(".meaning__list");
+    // console.log(partSpeachDv);
+    const definitions = meaning.definitions;
+    //  dfLength = definitions.length
+    for (let i = 0; i < definitions.length; i++) {
+      const definition = definitions[i].definition;
 
+      const example = definitions[i].example;
+
+      addMeaningElement("li", "", definition, meaningListUl);
+      const meaningListLi = meaningListUl.children[i + 1];
+      if (example) {
+        addMeaningElement("span", "example", example, meaningListLi);
+      }
+    }
+    const synonyms = meaning.synonyms;
+    // while (partSpeachDv.firstChild) {
+    //   partSpeachDv.removeChild(partSpeachDv.firstChild);
+    // }
+  });
+  console.log(meanings);
+}
+
+// function addMeaningElement() {
+//   const partOfSpeachDv = document.createElement("div");
+//   partOfSpeachDv.className = "part-speach-dv";
+//   const partSpeachH2 = document.createElement("h2");
+//   partSpeachH2.className = "part-speach";
+//   const meaningH3 = document.createElement("h3");
+//   meaningH3.className = "meaning";
+//   const meaningListUl = document.createElement("ul");
+//   meaningListUl.className = "meaning__list";
+//   const meaningListLi = document.createElement("li");
+//   const meaningListLi = document.createElement("h3");
+// }
+
+function addMeaningElement(tag, className, Content, parentElement, position) {
+  if (!parentElement) {
+    console.warn("Parent element missing, skipping");
+    return;
+  }
+  const newElement = document.createElement(tag);
+  newElement.className = className;
+  if (Content !== "") {
+    newElement.textContent = Content;
+  }
+
+  // parentElement.insertAdjacentElement(position, newElement);
+
+  if (!position) {
+    parentElement.appendChild(newElement);
+  }
+}
+
+loadWordInfo();
 getWordData();
 addEventListener("DOMContentLoaded", preferedTheme);
 audioBtn.addEventListener("click", () => {

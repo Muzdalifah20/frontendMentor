@@ -373,6 +373,21 @@
       padding-block-end: 12px;
     }
   }
+
+  .example {
+    display: block;
+    padding-block-start: 12px;
+    color: var(--color-text-med-light);
+    font-size: var(--font-size-paragraph);
+    line-height: var(--line-height-paragraph);
+  }
+
+  .part-speach-dv {
+    padding-block: 32px;
+    @media (width >= calc(700 / 16 * 1rem)) {
+      padding-block: 40px 48px;
+    }
+  }
 }
 
 @layer component {
@@ -598,12 +613,6 @@
     padding-block: 32px;
     @media (width >= calc(700 / 16 * 1rem)) {
       padding-block: 40px 48px;
-    }
-
-    .example {
-      color: var(--color-text-med-light);
-      font-size: var(--font-size-paragraph);
-      line-height: var(--line-height-paragraph);
     }
   }
 
