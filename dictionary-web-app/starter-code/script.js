@@ -11,8 +11,14 @@ const audioBtn = document.querySelector("#audioBtn");
 const sourceWindow = document.querySelector("#sourceWindow");
 const souceLink = document.querySelector("#souceLink");
 const meaningsSect = document.querySelector("#meaningsSect");
-console.log();
+const sourceSec = document.querySelector("#sourceSec");
+const searchInput = document.querySelector("#searchInput");
+const searchBtn = document.querySelector("#searchBtn");
+const notfoundDv = document.querySelector(".not-found");
+const wordInfoDv = document.querySelector(".hero__word-info");
+const warningP = document.querySelector(".warning-p");
 
+console.log();
 themes.forEach((theme) => {
   theme.addEventListener("change", () => {
     if (theme.id == "dark") {
@@ -50,23 +56,80 @@ function preferedTheme() {
   }
 }
 
+let firstLoad = true;
 async function getWordData() {
-  let search = "hello";
+  let row = searchInput.value.trim();
+  if (row == "") {
+    if (firstLoad) {
+      row = "Keyboard";
+    } else {
+      searchInput.classList.add("warning");
+      warningP.classList.remove("hidden");
+      wordInfoDv.style.display = "none";
+      meaningsSect.style.display = "none";
+      sourceSec.style.display = "none";
+      return;
+    }
+  }
+
+  searchInput.classList.remove("warning");
+  warningP.classList.add("hidden");
+  wordInfoDv.style.removeProperty("display");
+  meaningsSect.style.removeProperty("display");
+  sourceSec.style.removeProperty("display");
+
+  let search = row;
   const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${search}`;
+
+  firstLoad = false;
   try {
     const response = await fetch(url);
     if (!response.ok) {
+      notFoundWord();
       throw new Error(`Response status: ${response.status}`);
     }
+    foundWord();
     const result = await response.json();
     const wordResult = result[0];
 
+    console.log(wordResult);
     getPronounciation(wordResult);
     getMeanings(wordResult);
     loadSource(wordResult);
+
     // console.log(result[0]);
   } catch (error) {
     console.error(error);
+  }
+}
+function notFoundWord() {
+  notfoundDv.style.display = "block";
+  wordInfoDv.style.display = "none";
+  meaningsSect.style.display = "none";
+  sourceSec.style.display = "none";
+}
+
+function foundWord() {
+  notfoundDv.style.display = "none";
+  wordInfoDv.style.removeProperty("display");
+  meaningsSect.style.removeProperty("display");
+  sourceSec.style.removeProperty("display");
+}
+
+function searchInputValidation() {
+  if (searchInput.value.trim() === "") {
+    searchInput.classList.add("warning");
+    warning.classList.remove("hidden");
+    warning.classList.add("warning-p");
+    wordInfoDv.style.display = "none";
+    meaningsSect.style.display = "none";
+    sourceSec.style.display = "none";
+  } else {
+    searchInput.classList.remove("warning");
+    warning.classList.remove("warning-p");
+    wordInfoDv.style.removeProperty("display");
+    meaningsSect.style.removeProperty("display");
+    sourceSec.style.removeProperty("display");
   }
 }
 
@@ -77,19 +140,19 @@ function getPronounciation(result) {
   );
 
   const british = result.phonetics.find((p) => p.audio?.includes("-uk"));
-
+  // console.log(american);
   let phonotic, audio;
-  if (american & american.text) {
+  if (american && american.text) {
     phonotic = american.text;
     audio = american.audio;
-  } else if (british & british.text) {
+  } else if (british && british.text) {
     phonotic = british.text;
     audio = british.audio;
   } else {
     phonotic = american?.text || british?.text || result.phonetics[0]?.text;
     audio = american.audio || british?.audio || result.phonetics[0]?.audio;
   }
-
+  // console.log(phonotic);
   loadWordInfo(wordTit, phonotic, audio);
 }
 
@@ -100,25 +163,35 @@ function loadWordInfo(wordTit, phonotic, audio) {
 }
 
 function loadSource(result) {
-  const source = result.sourceUrls[0];
+  const source = result.sourceUrls?.[0];
+
   souceLink.href = source;
   souceLink.textContent = source;
 }
 
 function getMeanings(result) {
   const meanings = result.meanings;
+  meaningsSect.replaceChildren();
+  let id = 1;
   meanings.forEach((meaning) => {
-    const partOfSpeach = meaning.partOfSpeach;
-    addMeaningElement("div", "part-speach-dv", "", meaningsSect);
-    const partSpeachDv = document.querySelector(".part-speach-dv");
-    addMeaningElement("h2", "part-speach", partOfSpeach, partSpeachDv);
-    addMeaningElement("h3", "meaning", "Meaning", partSpeachDv);
-    addMeaningElement("ul", "meaning__list", "", partSpeachDv);
-    const meaningListUl = partSpeachDv.querySelector(".meaning__list");
-    // const meaningListUl = partSpeachDv.querySelector(".meaning__list");
-    // console.log(partSpeachDv);
+    const partOfSpeech = meaning.partOfSpeech;
+
+    addMeaningElement(
+      "div",
+      "part-speech-dv",
+      "",
+      meaningsSect,
+      `partSpeech${id}`,
+    );
+    const partSpeechDv = document.querySelector(`#partSpeech${id}`);
+
+    addMeaningElement("h2", "part-speech", partOfSpeech, partSpeechDv);
+    addMeaningElement("h3", "meaning", "Meaning", partSpeechDv);
+    addMeaningElement("ul", "meaning__list", "", partSpeechDv);
+    const meaningListUl = partSpeechDv.querySelector(".meaning__list");
+
     const definitions = meaning.definitions;
-    //  dfLength = definitions.length
+
     for (let i = 0; i < definitions.length; i++) {
       const definition = definitions[i].definition;
 
@@ -130,43 +203,40 @@ function getMeanings(result) {
         addMeaningElement("span", "example", example, meaningListLi);
       }
     }
-    const synonyms = meaning.synonyms;
-    // while (partSpeachDv.firstChild) {
-    //   partSpeachDv.removeChild(partSpeachDv.firstChild);
+
+    let synonyms = meaning.synonyms.slice(0, 4).join(", ");
+    if (synonyms.length > 0) {
+      addMeaningElement("div", "synonyms", "", partSpeechDv, `synonyms${id}`);
+      const synonymsDv = document.querySelector(`#synonyms${id}`);
+
+      addMeaningElement("h3", "synonyms-word", "Synonyms", synonymsDv);
+      addMeaningElement("p", "synonyms-elect", synonyms, synonymsDv);
+    }
+
+    id++;
+
+    // while (partspeechDv.firstChild) {
+    //   partspeechDv.removeChild(partspeechDv.firstChild);
     // }
   });
   console.log(meanings);
 }
 
-// function addMeaningElement() {
-//   const partOfSpeachDv = document.createElement("div");
-//   partOfSpeachDv.className = "part-speach-dv";
-//   const partSpeachH2 = document.createElement("h2");
-//   partSpeachH2.className = "part-speach";
-//   const meaningH3 = document.createElement("h3");
-//   meaningH3.className = "meaning";
-//   const meaningListUl = document.createElement("ul");
-//   meaningListUl.className = "meaning__list";
-//   const meaningListLi = document.createElement("li");
-//   const meaningListLi = document.createElement("h3");
-// }
-
-function addMeaningElement(tag, className, Content, parentElement, position) {
+function addMeaningElement(tag, className, Content, parentElement, id) {
   if (!parentElement) {
     console.warn("Parent element missing, skipping");
     return;
   }
   const newElement = document.createElement(tag);
   newElement.className = className;
+  if (id) {
+    newElement.id = id;
+  }
   if (Content !== "") {
     newElement.textContent = Content;
   }
 
-  // parentElement.insertAdjacentElement(position, newElement);
-
-  if (!position) {
-    parentElement.appendChild(newElement);
-  }
+  parentElement.appendChild(newElement);
 }
 
 loadWordInfo();
@@ -182,4 +252,14 @@ audioBtn.addEventListener("click", () => {
 
 sourceWindow.addEventListener("click", () => {
   souceLink.click();
+});
+
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key == "Enter") {
+    getWordData();
+  }
+});
+
+searchBtn.addEventListener("click", () => {
+  getWordData();
 });
