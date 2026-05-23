@@ -25,6 +25,7 @@ const options = document.querySelectorAll(".options-list li");
 let isOpen = false;
 
 function toggleOptionsList() {
+  // https://codeaccessible.com/codepatterns/custom-select/
   isOpen = !isOpen;
 
   if (isOpen) {

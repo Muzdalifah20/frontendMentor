@@ -11,3 +11,4 @@ https://piccalil.li/tutorial/create-a-user-controlled-dark-or-light-mode/
 
 customizes accessable select
 https://www.freecodecamp.org/news/how-to-build-an-accessible-custom-dropdown-select-element/
+https://codeaccessible.com/codepatterns/custom-select/
