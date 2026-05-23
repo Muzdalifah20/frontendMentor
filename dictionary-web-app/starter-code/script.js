@@ -17,6 +17,136 @@ const searchBtn = document.querySelector("#searchBtn");
 const notfoundDv = document.querySelector(".not-found");
 const wordInfoDv = document.querySelector(".hero__word-info");
 const warningP = document.querySelector(".warning-p");
+const customSelect = document.querySelector(".custom-select");
+const selectTrigger = document.querySelector(".select-trigger");
+const optionsList = document.querySelector(".options-list");
+const options = document.querySelectorAll(".options-list li");
+
+let isOpen = false;
+
+function toggleOptionsList() {
+  isOpen = !isOpen;
+
+  if (isOpen) {
+    optionsList.style.display = "block";
+    selectTrigger.setAttribute("aria-expanded", "true");
+    optionsList.setAttribute("aria-hidden", "false");
+
+    // Set tabindex for options and focus the options list
+    optionsList.querySelectorAll("li").forEach((option) => {
+      option.setAttribute("tabindex", "0");
+    });
+
+    optionsList.focus();
+    optionsList.addEventListener("keydown", collapseOnEscape);
+    optionsList.addEventListener("keydown", navigateOptions);
+    customSelect.addEventListener("focusout", collapseDropdown);
+  } else {
+    optionsList.style.display = "none";
+    selectTrigger.setAttribute("aria-expanded", "false");
+    optionsList.setAttribute("aria-hidden", "true");
+
+    // Reset tabindex for options and focus selectTrigger
+    optionsList.querySelectorAll("li").forEach((option) => {
+      option.setAttribute("tabindex", "-1");
+    });
+
+    selectTrigger.focus();
+  }
+}
+
+function collapseOnEscape(event) {
+  if (event.key === "Escape") {
+    isOpen = false;
+    optionsList.style.display = "none";
+    selectTrigger.setAttribute("aria-expanded", "false");
+    selectTrigger.focus();
+  }
+}
+
+function navigateOptions(event) {
+  const focusedIndex = Array.from(options).indexOf(document.activeElement);
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    const previousIndex = (focusedIndex - 1 + options.length) % options.length;
+    options[previousIndex].focus();
+  } else if (event.key === "ArrowUp") {
+    event.preventDefault();
+    const nextIndex = (focusedIndex + 1) % options.length;
+    options[nextIndex].focus();
+  }
+}
+
+function collapseDropdown(event) {
+  if (!event.relatedTarget || !optionsList.contains(event.relatedTarget)) {
+    isOpen = false;
+    optionsList.style.display = "none";
+    selectTrigger.setAttribute("aria-expanded", "false");
+    selectTrigger.focus();
+  }
+}
+
+selectTrigger.addEventListener("click", toggleOptionsList);
+
+optionsList.addEventListener("keydown", trapFocus);
+
+options.forEach((option) => {
+  option.addEventListener("click", () => {
+    selectOption(option);
+  });
+  option.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      selectOption(option);
+    } else if (event.key === "ArrowDown") {
+      navigateOptions(event);
+    } else if (event.key === "ArrowUp") {
+      navigateOptions(event);
+    } else if (event.key === "Escape") {
+      toggleOptionsList();
+    }
+  });
+});
+
+function selectOption(option) {
+  const font = option.dataset.font;
+
+  selectTrigger.querySelector("#selectedOption").innerText = option.innerText;
+  options.forEach((opt) => {
+    opt.setAttribute("aria-selected", "false");
+  });
+  option.setAttribute("aria-selected", "true");
+  // update body font
+  document.body.style.fontFamily = "";
+  if (font) {
+    document.body.style.fontFamily = `var(--ff-${font})`;
+  }
+  setTimeout(() => {
+    toggleOptionsList();
+  }, 100);
+}
+
+function trapFocus(event) {
+  const focusableElements = optionsList.querySelectorAll("li");
+  const firstFocusable = focusableElements[0];
+  const lastFocusable = focusableElements[focusableElements.length - 1];
+  const isTabPressed = event.key === "Tab" || event.keyCode === 9;
+
+  if (!isTabPressed) {
+    return;
+  }
+
+  if (event.shiftKey) {
+    if (document.activeElement === firstFocusable) {
+      event.preventDefault();
+      lastFocusable.focus();
+    }
+  } else {
+    if (document.activeElement === lastFocusable) {
+      event.preventDefault();
+      firstFocusable.focus();
+    }
+  }
+}
 
 console.log();
 themes.forEach((theme) => {
@@ -26,11 +156,13 @@ themes.forEach((theme) => {
       body.className = "dark";
       localStorage.setItem("theme", "");
       localStorage.setItem("theme", "dark");
+      localStorage.setItem("hasShadow", "true");
     } else {
       body.className = "";
       body.className = "light";
       localStorage.setItem("theme", "");
       localStorage.setItem("theme", "light");
+      localStorage.setItem("hasShadow", "false");
     }
   });
 });
@@ -46,14 +178,26 @@ function preferedTheme() {
     if (prefTheme == "dark") {
       body.className = "";
       body.className = "dark";
+      optionsList.classList.add("has-shadow");
+
       // toggleBtnDark();
     } else {
       body.className = "";
       body.className = "light";
+      optionsList.classList.remove("has-shadow");
     }
   } else {
     body.className = "";
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      optionsList.classList.add("has-shadow");
+    } else {
+      optionsList.classList.remove("has-shadow");
+    }
   }
+}
+
+function saveShodowState() {
+  localStorage.setItem("hasShadow");
 }
 
 let firstLoad = true;
@@ -263,3 +407,27 @@ searchInput.addEventListener("keydown", (e) => {
 searchBtn.addEventListener("click", () => {
   getWordData();
 });
+
+// let headerCustomSelect,
+//   i,
+//   j,
+//   headerCustomSelectLenght,
+//   selElmntLenght,
+//   selElmnt,
+//   dvA,
+//   dvB,
+//   dvC;
+
+// headerCustomSelect = document.querySelectorAll(".header__custom-select");
+
+// headerCustomSelectLenght = headerCustomSelect.length;
+
+// for (i = 0; i < headerCustomSelectLenght; i++) {
+//   selElmnt = headerCustomSelect[i].getElementsByTagName("select")[0];
+//   selElmntLenght = selElmnt.length;
+
+//   dvA = document.createElement("div");
+//   dvA.setAttribute("class", "header__select-selected");
+//   dvA.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+//   headerCustomSelect.appendChild(dvA);
+// }

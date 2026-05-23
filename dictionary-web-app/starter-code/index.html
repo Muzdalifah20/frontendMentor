@@ -30,25 +30,66 @@
         </a>
 
         <div class="header__select">
-          <select name="fonts" id="ddFonts" class="dropdown header__dropdown">
-            <svg
-              class="header__dropdown-svg"
-              width="14"
-              height="8"
-              viewBox="0 0 14 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          <!--  -->
+          <div id="container">
+            <div
+              class="custom-select"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              role="combobox"
             >
-              <path
-                d="M0.530273 0.530334L6.53027 6.53033L12.5303 0.530334"
-                stroke="#A445ED"
-                stroke-width="1.5"
-              />
-            </svg>
-            <option value="sans">Sans Serif</option>
-            <option value="serif">Serif</option>
-            <option value="mono">Mono</option>
-          </select>
+              <button
+                class="select-trigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="selectedOption"
+              >
+                <span id="selectedOption">Sans Serif</span>
+                <span aria-hidden="true"
+                  ><svg
+                    class="header__dropdown-svg"
+                    width="14"
+                    height="8"
+                    viewBox="0 0 14 8"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.530273 0.530334L6.53027 6.53033L12.5303 0.530334"
+                      stroke="#A445ED"
+                      stroke-width="1.5"
+                    /></svg
+                ></span>
+              </button>
+              <ul role="listbox" id="listbox" class="options-list">
+                <li
+                  role="sans"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-font="sans"
+                >
+                  SansSerif
+                </li>
+                <li
+                  role="serif"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-font="serif"
+                >
+                  Serif
+                </li>
+                <li
+                  role="mono"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-font="mono"
+                >
+                  Mono
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <fieldset
             aria-label="theme toggle"
             role="radiogroup"
