@@ -119,6 +119,8 @@
     --color-source-link-decoration-dark: var(--color-text-light);
     --color-moon-light: var(--c-neutral-500);
     --color-moon-dark: var(--c-purple-500);
+    --border-line-light: var(--c-neutral-200);
+    --border-line-dark: var(--c-neutral-0);
 
     /* system default light */
     --background: var(var(--color-main-bg-light));
@@ -136,6 +138,7 @@
     --color-moon: var(--color-moon-light);
     --color-info-word: var(--color-info-word-light);
     --color-part-speech-text: var(--color-part-speech-text-light);
+    --border-line: var(--border-line-light);
 
     --radius-10: 10px;
     --radius-16: 16px;
@@ -219,6 +222,7 @@
       --color-moon: var(--color-moon-dark);
       --color-info-word: var(--color-info-word-dark);
       --color-part-speech-text: var(--color-part-speech-text-dark);
+      --border-line: var(--border-line-dark);
     }
   }
 
@@ -242,6 +246,7 @@
     --color-moon: var(--color-moon-light);
     --color-info-word: var(--color-info-word-light);
     --color-part-speech-text: var(--color-part-speech-text-light);
+    --border-line: var(--border-line-light);
   }
 
   body.dark {
@@ -260,6 +265,7 @@
     --color-moon: var(--color-moon-dark);
     --color-info-word: var(--color-info-word-dark);
     --color-part-speech-text: var(--color-part-speech-text-dark);
+    --border-line: var(--border-line-dark);
   }
 
   *,
@@ -273,7 +279,7 @@
   }
 
   body {
-    font-family: var(--ff-serif);
+    font-family: var(--ff-sans);
     margin-bottom: 7.125rem;
     background: var(--background);
   }
@@ -477,9 +483,7 @@
 
     .header__select {
       display: flex;
-    }
-
-    #container {
+      align-items: center;
     }
 
     .custom-select {
@@ -492,6 +496,7 @@
       align-items: center;
       gap: 8px;
       padding: 0;
+      margin-inline-end: 16px;
       background-color: var(--color-dropdown-bg);
       color: var(--color-dropdown-text);
       font-size: var(--font-size-dropdown);
@@ -502,7 +507,7 @@
     .options-list {
       display: none;
       width: fit-content;
-      display: grid;
+      /* display: grid; */
       /* justify-items: center; */
       position: absolute;
       top: calc(100% + 17px);
@@ -532,59 +537,12 @@
     .options-list:active {
       color: var(--c-purple-500);
     }
-    /* .header__select-selected {
-      background-color: var(--color-dropdown-bg);
-    }
 
-    .header__select-items div,
-    .header__custom-select {
-      color: var(--color-dropdown-text);
-      font-size: var(--font-size-dropdown);
-      cursor: pointer;
+    .header__dropdown-svg {
+      display: flex;
     }
-
-    .header__select-items {
-      position: absolute;
-      background-color: var(--color-dropdown-bg);
-      line-height: var(--line-height-dropdown);
-      top: 100%;
-      left: 0;
-      right: 0;
-      z-index: 99;
-    }
-
-    .header__select-hide {
-      display: none;
-    }
-
-    .header__select-items div:hover,
-    .header__select-items div:focus,
-    .header__same-as-selected {
-      background-color: rgba(0, 0, 0, 0.1);
-    } */
-
-    .header__dropdown {
-      position: relative;
-      color: var(--color-dropdown-text);
-      background-color: var(--color-dropdown-bg);
-      font-size: var(--font-size-dropdown);
-      line-height: var(--line-height-dropdown);
-      border: 0;
-      cursor: pointer;
-    }
-
-    .item {
-      position: absolute;
-      top: 50px;
-      font-size: var(--font-size-dropdown);
-      line-height: var(--line-height-dropdown);
-      padding-block: 24px;
-      padding-inline: 24px 69px;
-      cursor: pointer;
-    }
-    .header__dropdown option:hover,
-    .header__dropdown option:focus {
-      color: var(--color-dropdown-arrow);
+    .header__dropdown-svg path {
+      align-self: center;
     }
 
     fieldset {
@@ -598,6 +556,7 @@
       justify-content: center;
       align-items: center;
       gap: 20px;
+      border-inline-start: 1px solid var(--border-line);
     }
 
     .header__toggle-wrapper {
@@ -688,6 +647,12 @@
     .hero__search:focus {
       border: 1px solid var(--color-search-bar-hover);
       outline: 1px solid var(--color-search-bar-hover);
+    }
+
+    .hero__search:hover,
+    .hero__search:active,
+    .hero__search:focus .hero__word-info-word {
+      border-inline-end: 1px solid var(--c-purple-500);
     }
 
     /* .warning .hero__search {

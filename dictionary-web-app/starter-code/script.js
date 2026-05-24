@@ -39,8 +39,10 @@ function toggleOptionsList() {
     });
 
     optionsList.focus();
+
     optionsList.addEventListener("keydown", collapseOnEscape);
     optionsList.addEventListener("keydown", navigateOptions);
+    // optionsList.addEventListener("keydown", trapFocus);
     customSelect.addEventListener("focusout", collapseDropdown);
   } else {
     optionsList.style.display = "none";
@@ -49,10 +51,14 @@ function toggleOptionsList() {
 
     // Reset tabindex for options and focus selectTrigger
     optionsList.querySelectorAll("li").forEach((option) => {
-      option.setAttribute("tabindex", "-1");
+      option.removeAttribute("tabindex");
     });
 
-    selectTrigger.focus();
+    searchInput.focus();
+
+    // optionsList.removeEventListener("keydown", trapFocus);
+
+    // selectTrigger.focus();
   }
 }
 
@@ -89,7 +95,7 @@ function collapseDropdown(event) {
 
 selectTrigger.addEventListener("click", toggleOptionsList);
 
-optionsList.addEventListener("keydown", trapFocus);
+// optionsList.addEventListener("keydown", trapFocus);
 
 options.forEach((option) => {
   option.addEventListener("click", () => {
@@ -126,28 +132,28 @@ function selectOption(option) {
   }, 100);
 }
 
-function trapFocus(event) {
-  const focusableElements = optionsList.querySelectorAll("li");
-  const firstFocusable = focusableElements[0];
-  const lastFocusable = focusableElements[focusableElements.length - 1];
-  const isTabPressed = event.key === "Tab" || event.keyCode === 9;
+// function trapFocus(event) {
+//   const focusableElements = optionsList.querySelectorAll("li");
+//   const firstFocusable = focusableElements[0];
+//   const lastFocusable = focusableElements[focusableElements.length - 1];
+//   const isTabPressed = event.key === "Tab" || event.keyCode === 9;
 
-  if (!isTabPressed) {
-    return;
-  }
+//   if (!isTabPressed) {
+//     return;
+//   }
 
-  if (event.shiftKey) {
-    if (document.activeElement === firstFocusable) {
-      event.preventDefault();
-      lastFocusable.focus();
-    }
-  } else {
-    if (document.activeElement === lastFocusable) {
-      event.preventDefault();
-      firstFocusable.focus();
-    }
-  }
-}
+//   if (event.shiftKey) {
+//     if (document.activeElement === firstFocusable) {
+//       event.preventDefault();
+//       lastFocusable.focus();
+//     }
+//   } else {
+//     if (document.activeElement === lastFocusable) {
+//       event.preventDefault();
+//       firstFocusable.focus();
+//     }
+//   }
+// }
 
 console.log();
 themes.forEach((theme) => {
@@ -409,26 +415,20 @@ searchBtn.addEventListener("click", () => {
   getWordData();
 });
 
-// let headerCustomSelect,
-//   i,
-//   j,
-//   headerCustomSelectLenght,
-//   selElmntLenght,
-//   selElmnt,
-//   dvA,
-//   dvB,
-//   dvC;
+function collapseOnEscape(event) {
+  if (event.key === "Escape") {
+    isOpen = false;
+    optionsList.style.display = "none";
+    selectTrigger.setAttribute("aria-expanded", "false");
+    searchInput.focus(); // ←
+  }
+}
 
-// headerCustomSelect = document.querySelectorAll(".header__custom-select");
-
-// headerCustomSelectLenght = headerCustomSelect.length;
-
-// for (i = 0; i < headerCustomSelectLenght; i++) {
-//   selElmnt = headerCustomSelect[i].getElementsByTagName("select")[0];
-//   selElmntLenght = selElmnt.length;
-
-//   dvA = document.createElement("div");
-//   dvA.setAttribute("class", "header__select-selected");
-//   dvA.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-//   headerCustomSelect.appendChild(dvA);
-// }
+function collapseDropdown(event) {
+  if (!event.relatedTarget || !optionsList.contains(event.relatedTarget)) {
+    isOpen = false;
+    optionsList.style.display = "none";
+    selectTrigger.setAttribute("aria-expanded", "false");
+    searchInput.focus(); // ←
+  }
+}
