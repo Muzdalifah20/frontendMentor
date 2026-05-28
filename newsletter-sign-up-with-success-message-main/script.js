@@ -14,7 +14,7 @@ form.addEventListener("submit", (e) => {
 
   let isvalid = true;
 
-  const pattren = /^[a-z0-9._+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+  const pattren = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
   if (!emailValue) {
     isvalid = false;
     inValidP.textContent = "";
