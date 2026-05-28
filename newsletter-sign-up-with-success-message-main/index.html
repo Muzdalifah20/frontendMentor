@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>
+      Frontend Mentor | Newsletter sign-up form with success message
+    </title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 0.6875rem;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <!-- Sign-up form start -->
+    <h1 class="visually-hidden">Sign Up</h1>
+    <main>
+      <section class="signup wrapper">
+        <div class="signup__wrapper">
+          <picture class="signup__picture">
+            <source
+              media="(min-width: 1200px)"
+              srcset="./assets/images/illustration-sign-up-desktop.svg"
+              width="400"
+              height="593"
+            />
+            <source
+              media="(min-width: 700px)"
+              srcset="./assets/images/illustration-sign-up-tablet.svg"
+              width="528"
+              height="360"
+            />
+            <img
+              class="signup__image full-bleed"
+              src="./assets/images/illustration-sign-up-mobile.svg"
+              alt=""
+              width="375"
+              height="284"
+            />
+          </picture>
+          <div class="signup__content">
+            <h2>Stay updated!</h2>
+            <p>Join 60,000+ product managers receiving monthly updates on:</p>
+            <ul>
+              <li>
+                <img src="./assets/images/icon-list.svg" alt="" />
+                <span>Product discovery and building what matters</span>
+              </li>
+              <li>
+                <img src="./assets/images/icon-list.svg" alt="" />
+                <span>Measuring to ensure updates are a success</span>
+              </li>
+              <li>
+                <img src="./assets/images/icon-list.svg" alt="" />
+                <span>And much more!</span>
+              </li>
+            </ul>
+
+            <form action="/" class="form" novalidate>
+              <div class="form__validation">
+                <label for="email">Email address</label>
+                <p id="inValid"></p>
+              </div>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                placeholder="email@company.com"
+                required
+              />
+              <button class="button" id="subscribeBtn">
+                Subscribe to monthly newsletter
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section class="success wrapper">
+        <div class="success__content">
+          <img
+            class="success__image"
+            src="./assets/images/icon-success.svg"
+            alt=""
+            width="64"
+            height="64"
+          />
+          <h2>Thanks for subscribing!</h2>
+          <p>
+            A confirmation email has been sent to ash@loremcompany.com. Please
+            open it and click the button inside to confirm your subscription.
+          </p>
+          <button class="button" id="dismissmessageBtn">Dismiss message</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Sign-up form end -->
+
+    <!-- Success message start -->
+
+    <!--    -->
+
+    <!-- Success message end -->
+  </body>
+</html>
