@@ -214,6 +214,9 @@ input::placeholder {
   background: var(--c-red-15);
 }
 
+.in-valid-message {
+  color: var(--color-invalid);
+}
 .button {
   text-align: center;
   color: var(--color-btn-text);
