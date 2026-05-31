@@ -42,13 +42,34 @@
               />
               <div class="tt__heading-user-content">
                 <p>Report for</p>
-                <p class="user">Jeremy Robson</p>
+                <h2 class="user">Jeremy Robson</h2>
               </div>
             </div>
             <div class="tt__heading-btns">
-              <button class="tt__heading-btn" id="daily">Daily</button>
-              <button class="tt__heading-btn" id="weekly">Weekly</button>
-              <button class="tt__heading-btn" id="monthly">Monthly</button>
+              <button
+                class="tt__heading-btn"
+                id="daily"
+                data-timeframe="daily"
+                aria-pressed="true"
+              >
+                Daily
+              </button>
+              <button
+                class="tt__heading-btn"
+                id="weekly"
+                data-timeframe="weekly"
+                aria-pressed="false"
+              >
+                Weekly
+              </button>
+              <button
+                class="tt__heading-btn"
+                id="monthly"
+                data-timeframe="monthly"
+                aria-pressed="false"
+              >
+                Monthly
+              </button>
             </div>
           </div>
           <div class="tt__cards">

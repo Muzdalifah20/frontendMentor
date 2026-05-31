@@ -1,10 +1,8 @@
-const dailyBtn = document.querySelector("#daily");
-const weeklyBtn = document.querySelector("#weekly");
-const monthlyBtn = document.querySelector("#monthly");
+const timeFrameBtns = document.querySelectorAll(".tt__heading-btn");
 
 const fetchData = async (timeFrame) => {
   try {
-    const response = await fetch("./data.json");
+    const response = await fetch("./assets/data/data.json");
     if (!response.ok)
       throw new Error(
         `Failed to fetch: ${response.status} ${response.statusText}`,
@@ -19,7 +17,7 @@ const fetchData = async (timeFrame) => {
 };
 
 function getTimeTrackData(data, timeFrame) {
-  let title;
+  let time;
 
   if (timeFrame === "daily") {
     time = "Yesterday";
@@ -28,43 +26,50 @@ function getTimeTrackData(data, timeFrame) {
   } else {
     time = "last Month";
   }
-  let id = 1;
-  data.forEach((item) => {
-    const timeTrackTitle = document.querySelector(
-      `#tt__card${id} .tt__card-content-title`,
-    );
-    const timeTrackCurrP = document.querySelector(
-      `#tt__card${id} .tt__card-content-result`,
-    );
-    const timeTrackPrevP = document.querySelector(
-      `#tt__card${id} .tt__card-content-status-prev`,
-    );
 
-    timeFrameCurr = item.timeframes[timeFrame].current;
-    timeFramePrev = item.timeframes[timeFrame].previous;
+  const cards = document.querySelectorAll(".tt__card");
+  data.forEach((item, index) => {
+    const card = cards[index];
+
+    if (!card) return;
+
+    const timeTrackTitle = card.querySelector(".tt__card-content-title");
+    const timeTrackCurrP = card.querySelector(".tt__card-content-result");
+    const timeTrackPrevP = card.querySelector(".tt__card-content-status-prev");
+
+    if (!timeTrackTitle || !timeTrackCurrP || !timeTrackPrevP) return;
+
+    const timeFrameCurr = item.timeframes?.[timeFrame]?.current;
+    const timeFramePrev = item.timeframes?.[timeFrame]?.previous;
+
     const hourStatusCurr = timeFrameCurr === 1 ? "hr" : "hrs";
     const hourStatusPrev = timeFramePrev === 1 ? "hr" : "hrs";
 
     timeTrackTitle.textContent = item.title;
     timeTrackCurrP.textContent = `${timeFrameCurr}${hourStatusCurr}`;
     timeTrackPrevP.textContent = ` ${time} - ${timeFramePrev}${hourStatusPrev}`;
+  });
+}
 
-    id++;
+function setActiveTimeFrame(timeFrame) {
+  timeFrameBtns.forEach((btn) => {
+    const btnTimeFrame = btn.dataset.timeframe;
+    btn.setAttribute(
+      "aria-pressed",
+      btnTimeFrame === timeFrame ? "true" : "false",
+    );
   });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchData("daily");
 });
-dailyBtn.addEventListener("click", (e) => {
-  let timeFrame = e.target.textContent.toLowerCase();
-  fetchData(timeFrame);
-});
-weeklyBtn.addEventListener("click", (e) => {
-  let timeFrame = e.target.textContent.toLowerCase();
-  fetchData(timeFrame);
-});
-monthlyBtn.addEventListener("click", (e) => {
-  let timeFrame = e.target.textContent.toLowerCase();
-  fetchData(timeFrame);
+
+timeFrameBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const timeFrame = btn.dataset.timeframe;
+
+    fetchData(timeFrame);
+    setActiveTimeFrame(timeFrame);
+  });
 });
