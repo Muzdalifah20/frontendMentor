@@ -1,49 +1,102 @@
-const amountInput = document.querySelector("#bill");
-
-const peopleNumberInput = document.querySelector("#peopleNumber");
+const billInput = document.querySelector("#bill");
+const peopleInput = document.querySelector("#peopleNumber");
 const invalidPeopeSpan = document.querySelector("#invalidPeope");
 const invalidBillSpan = document.querySelector("#invalidBill");
 
 const resetBtn = document.querySelector("#resetBtn");
-const customInput = document.querySelector("#customInput");
-const tipAmountP = document.querySelector(
+const customTipInput = document.querySelector("#customInput");
+const tipAmountDisplay = document.querySelector(
   ".tip-calculator__result-amount-value",
+);
+const tipTotalDisplay = document.querySelector(
+  ".tip-calculator__result-total-value",
 );
 const tipBtns = document.querySelectorAll(".tip-calculator__btn");
 
-const tipTotalP = document.querySelector(".tip-calculator__result-total-value");
+let currentTipPercentage = 0;
 
-let currentTip = 0;
-
-function tipFormula(amount = 0, percent = 1) {
-  return Math.round(((amount * percent) / 100) * 100) / 100;
+function calculateTipAmount(billAmount = 0, tipPercentage = 1) {
+  return Math.round(((billAmount * tipPercentage) / 100) * 100) / 100;
 }
 
-function tipAmontPerPerson(amount = 0, percent, numPeople = 1) {
-  const tipAmount = tipFormula(amount, percent) / numPeople;
-  const rounded = Math.round(tipAmount * 100) / 100;
-  return rounded.toFixed(2);
+function calculateTipAmontPerPerson(
+  billAmount = 0,
+  tipPercentage,
+  numPeople = 1,
+) {
+  const totalTip = calculateTipAmount(billAmount, tipPercentage);
+  const tipPerPerson = totalTip / numPeople;
+  return Math.round(tipPerPerson * 100) / 100;
 }
 
-function tipTotalPerPerson(amount = 0, percent, numPeople = 1) {
-  const total = Number(amount) + tipFormula(amount, percent);
-  const rounded = Math.round((total / numPeople) * 100) / 100;
-  return rounded.toFixed(2);
+function calculateTotalPerPerson(billAmount = 0, tipPercentage, numPeople = 1) {
+  const totalTip = calculateTipAmount(billAmount, tipPercentage);
+  const total = Number(billAmount) + totalTip;
+  const perPerson = total / numPeople;
+  return Math.round(perPerson * 100) / 100;
 }
 
-function resetInput(input) {
+// format currency & update its Ui
+function formatCurrency(value) {
+  return `$${value.toFixed(2)}`;
+}
+
+function updateDisplay(element, value) {
+  element.textContent = formatCurrency(value);
+}
+
+// Reset Dispaly helper
+function clearDisplay(element) {
+  element.textContent = `$${0.0}`;
+}
+
+function clearDisplayInput(input) {
   input.placeholder = `0`;
   input.value = "";
   input.classList.remove("in-valid");
 }
 
-function resetElement(element) {
-  element.textContent = "$0.00";
-}
-
-function resetCustom(element) {
+function clearCustomDisplay(element) {
   element.value = "";
   element.placeholder = "Custom";
+}
+
+//  validation helper
+
+function validateInput(input, messageElement, inputElement) {
+  if (input === 0 || input === "") {
+    showInvalidMessage(messageElement, inputElement, "Can't be zero");
+    return false;
+  }
+  if (Number.isNaN(input)) {
+    showInvalidMessage(messageElement, inputElement, "Input must be number");
+    return false;
+  }
+
+  if (input < 0) {
+    showInvalidMessage(messageElement, inputElement, "Can't be negative");
+    return false;
+  }
+
+  clearInvalidlMessage(messageElement, inputElement);
+  return true;
+}
+
+function getInputValue(input) {
+  return Number(input.value);
+}
+
+function showInvalidMessage(messageElement, inputElement, message) {
+  messageElement.classList.remove("hidden");
+  messageElement.classList.add("in-valid-span");
+  inputElement.classList.add("in-valid");
+  messageElement.textContent = message;
+}
+
+function clearInvalidlMessage(messageElement, inputElement) {
+  messageElement.classList.remove("in-valid-span");
+  inputElement.classList.remove("in-valid");
+  messageElement.textContent = "";
 }
 
 function getTip(e) {
@@ -51,164 +104,77 @@ function getTip(e) {
   return Number(tip);
 }
 
-function updateTipResultUi(element, result) {
-  return (element.textContent = `$${result}`);
-}
-
-function validateInput(input, messageElement, inputElement) {
-  let message;
-  if (input === 0 || input === "") {
-    message = "Can't be zero";
-    invalidMessage(messageElement, inputElement, message);
-    return false;
-  }
-  if (Number.isNaN(input)) {
-    message = "Input must be number";
-    invalidMessage(messageElement, inputElement, message);
-    return false;
-  }
-
-  if (input < 0) {
-    message = "Can't be negative number";
-    invalidMessage(messageElement, inputElement, message);
-    return false;
-  }
-  validlMessage(messageElement, inputElement);
-  return true;
-}
-
-function invalidMessage(element, inputElement, message) {
-  element.classList.remove("hidden");
-  element.classList.add("in-valid-span");
-  inputElement.classList.add("in-valid");
-
-  element.textContent = message;
-}
-
-function validlMessage(element, inputElement) {
-  element.classList.remove("in-valid-span");
-  inputElement.classList.remove("in-valid");
-  element.textContent = "";
-}
-
 function getCustomBtnTip(e) {
   const tipCustom = Number(e.target.value);
   return tipCustom;
 }
 
-tipBtns.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    let tip = getTip(e);
-    currentTip = tip;
+function recalculatetipResults() {
+  const billAmount = getInputValue(billInput);
+  const peopleNumber = getInputValue(peopleInput);
 
-    if (!tip) return;
-    const billAmount = Number(amountInput.value);
-    const peopleNumber = Number(peopleNumberInput.value);
-
-    const billValid = validateInput(billAmount, invalidBillSpan, amountInput);
-    const peopleValid = validateInput(
-      peopleNumber,
-      invalidPeopeSpan,
-      peopleNumberInput,
-    );
-
-    if (!billValid || !peopleValid) return;
-
-    updateTipResultUi(
-      tipAmountP,
-      tipAmontPerPerson(billAmount, tip, peopleNumber),
-    );
-    updateTipResultUi(
-      tipTotalP,
-      tipTotalPerPerson(billAmount, tip, peopleNumber),
-    );
-  });
-});
-
-customInput.addEventListener("input", (e) => {
-  let tip = getCustomBtnTip(e);
-  currentTip = tip;
-
-  const billAmount = Number(amountInput.value);
-  const peopleNumber = Number(peopleNumberInput.value);
-
-  if (tip < 0) return;
-  const billValid = validateInput(billAmount, invalidBillSpan, amountInput);
-  const peopleValid = validateInput(
+  const isBillValid = validateInput(billAmount, invalidBillSpan, billInput);
+  const isPeopleValid = validateInput(
     peopleNumber,
     invalidPeopeSpan,
-    peopleNumberInput,
+    peopleInput,
   );
 
-  if (!billValid || !peopleValid) return;
+  if (!isBillValid || !isPeopleValid) return;
 
-  updateTipResultUi(
-    tipAmountP,
-    tipAmontPerPerson(billAmount, tip, peopleNumber),
-  );
-  updateTipResultUi(
-    tipTotalP,
-    tipTotalPerPerson(billAmount, tip, peopleNumber),
-  );
-});
+  if (currentTipPercentage <= 0) return;
 
-amountInput.addEventListener("input", (e) => {
-  const billAmount = Number(amountInput.value);
-  const peopleNumber = Number(peopleNumberInput.value);
-
-  const billValid = validateInput(billAmount, invalidBillSpan, amountInput);
-  const peopleValid = validateInput(
+  const tipPerPerson = calculateTipAmontPerPerson(
+    billAmount,
+    currentTipPercentage,
     peopleNumber,
-    invalidPeopeSpan,
-    peopleNumberInput,
   );
-
-  if (!billValid || !peopleValid) return;
-  if (currentTip <= 0) return;
-
-  updateTipResultUi(
-    tipAmountP,
-    tipAmontPerPerson(billAmount, currentTip, peopleNumber),
-  );
-  updateTipResultUi(
-    tipTotalP,
-    tipTotalPerPerson(billAmount, currentTip, peopleNumber),
-  );
-});
-
-peopleNumberInput.addEventListener("input", (e) => {
-  const billAmount = Number(amountInput.value);
-  const peopleNumber = Number(peopleNumberInput.value);
-
-  const billValid = validateInput(billAmount, invalidBillSpan, amountInput);
-  const peopleValid = validateInput(
+  const totalperPerson = calculateTotalPerPerson(
+    billAmount,
+    currentTipPercentage,
     peopleNumber,
-    invalidPeopeSpan,
-    peopleNumberInput,
   );
 
-  if (!billValid || !peopleValid) return;
-  if (currentTip <= 0) return;
+  updateDisplay(tipAmountDisplay, tipPerPerson);
+  updateDisplay(tipTotalDisplay, totalperPerson);
+}
 
-  updateTipResultUi(
-    tipAmountP,
-    tipAmontPerPerson(billAmount, currentTip, peopleNumber),
-  );
-  updateTipResultUi(
-    tipTotalP,
-    tipTotalPerPerson(billAmount, currentTip, peopleNumber),
-  );
-});
+function handleTipBtnsClick(e) {
+  let tipPercentage = getTip(e);
+  if (!tipPercentage) return;
+
+  currentTipPercentage = tipPercentage;
+  recalculatetipResults();
+}
+
+function handleCustomTipInput(e) {
+  let tipPercentage = getCustomBtnTip(e);
+  if (!tipPercentage || tipPercentage < 0) return;
+
+  currentTipPercentage = tipPercentage;
+  recalculatetipResults();
+}
+
+function handleTipInput() {
+  recalculatetipResults();
+}
 
 resetBtn.addEventListener("click", (e) => {
-  resetElement(tipAmountP);
-  resetElement(tipTotalP);
-  resetInput(amountInput);
-  resetInput(peopleNumberInput);
-  resetCustom(customInput);
-  invalidBillSpan.classList.remove("in-valid-span");
+  clearDisplay(tipAmountDisplay);
+  clearDisplay(tipTotalDisplay);
+  clearDisplayInput(billInput);
+  clearDisplayInput(peopleInput);
+  clearCustomDisplay(customTipInput);
 
+  invalidBillSpan.classList.remove("in-valid-span");
   invalidPeopeSpan.classList.remove("in-valid-span");
 
-  currentTip = 0;
+  currentTipPercentage = 0;
 });
+
+tipBtns.forEach((btn) => {
+  btn.addEventListener("click", handleTipBtnsClick);
+});
+customTipInput.addEventListener("input", handleCustomTipInput);
+billInput.addEventListener("input", handleTipInput);
+peopleInput.addEventListener("input", handleTipInput);
