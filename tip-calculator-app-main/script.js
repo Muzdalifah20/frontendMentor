@@ -1,6 +1,5 @@
 const amountInput = document.querySelector("#bill");
 
-const amountInputValue = amountInput.value;
 const peopleNumberInput = document.querySelector("#peopleNumber");
 const invalidPeopeSpan = document.querySelector("#invalidPeope");
 const invalidBillSpan = document.querySelector("#invalidBill");

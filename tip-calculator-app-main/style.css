@@ -40,7 +40,6 @@
   --color-text-custom: var(--c-grey-550);
   --color-bill-number-custom-bg: var(--c-grey-50);
   --color-input-hover: var(--c-green-400);
-  --color-invalid: var(--c-orange);
 
   --ff: "Space Mono", monospace;
   --fs-48: calc(48 / 16 * 1rem);
