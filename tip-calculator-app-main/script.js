@@ -44,7 +44,7 @@ function resetElement(element) {
 
 function resetCustom(element) {
   element.value = "";
-  element.textContent = "Custom";
+  element.placeholder = "Custom";
 }
 
 function getTip(e) {
