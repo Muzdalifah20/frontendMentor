@@ -1,6 +1,6 @@
 const billInput = document.querySelector("#bill");
 const peopleInput = document.querySelector("#peopleNumber");
-const invalidPeopeSpan = document.querySelector("#invalidPeope");
+const invalidPeopeSpan = document.querySelector("#invalidPeople");
 const invalidBillSpan = document.querySelector("#invalidBill");
 
 const resetBtn = document.querySelector("#resetBtn");
@@ -53,7 +53,7 @@ function clearDisplay(element) {
 function clearDisplayInput(input) {
   input.placeholder = `0`;
   input.value = "";
-  input.classList.remove("in-valid");
+  input.classList.remove("validation__input-outline");
 }
 
 function clearCustomDisplay(element) {
@@ -88,14 +88,14 @@ function getInputValue(input) {
 
 function showInvalidMessage(messageElement, inputElement, message) {
   messageElement.classList.remove("hidden");
-  messageElement.classList.add("in-valid-span");
-  inputElement.classList.add("in-valid");
+  messageElement.classList.add("validation__message");
+  inputElement.classList.add("validation__input-outline");
   messageElement.textContent = message;
 }
 
 function clearInvalidlMessage(messageElement, inputElement) {
-  messageElement.classList.remove("in-valid-span");
-  inputElement.classList.remove("in-valid");
+  messageElement.classList.remove("validation__message");
+  inputElement.classList.remove("validation__input-outline");
   messageElement.textContent = "";
 }
 
@@ -166,8 +166,8 @@ resetBtn.addEventListener("click", (e) => {
   clearDisplayInput(peopleInput);
   clearCustomDisplay(customTipInput);
 
-  invalidBillSpan.classList.remove("in-valid-span");
-  invalidPeopeSpan.classList.remove("in-valid-span");
+  invalidBillSpan.classList.remove("validation__message");
+  invalidPeopeSpan.classList.remove("validation__message");
 
   currentTipPercentage = 0;
 });

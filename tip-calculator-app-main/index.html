@@ -42,7 +42,7 @@
         <div class="tip-calculator__wrapper">
           <div class="tip-calculator__entries">
             <h2 class="visually-hidden">Tip Entries</h2>
-            <div class="validation-dv">
+            <div class="validation">
               <label for="bill">Bill</label>
 
               <input
@@ -52,7 +52,7 @@
                 placeholder="0"
                 min="0"
               />
-              <span class="hidden in-valid-span" id="invalidBill"></span>
+              <span class="hidden validation__span" id="invalidBill"></span>
             </div>
 
             <div class="tip-calculator__btns-wrapper">
@@ -84,7 +84,8 @@
                 >
                   50%
                 </button>
-                <label for="customInput" class="visually-hidden"></label
+                <label for="customInput" class="visually-hidden"
+                  >Custom Tip Input</label
                 ><input
                   class="custom-input"
                   type="number"
@@ -94,7 +95,7 @@
                 />
               </div>
             </div>
-            <div class="validation-dv">
+            <div class="validation">
               <label for="peopleNumber">Number of People</label>
               <input
                 type="number"
@@ -103,7 +104,7 @@
                 placeholder="0"
                 min="0"
               />
-              <span class="hidden in-valid-span" id="invalidPeope"></span>
+              <span class="hidden validation__span" id="invalidPeople"></span>
             </div>
           </div>
           <div class="tip-calculator__results">
