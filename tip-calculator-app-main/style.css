@@ -321,8 +321,8 @@ input:active {
 
   @media (width >= calc(700 / 16 * 1rem)) {
     font-size: var(--fs-48);
-    line-height: var(--lh-4--fs-48);
-    letter-spacing: var(--letter-space-4--fs-48);
+    line-height: var(--lh-48);
+    letter-spacing: var(--letter-space-48);
   }
 
   @media (width >= calc(1200 / 16 * 1rem)) {
@@ -342,7 +342,7 @@ input:active {
   border-radius: var(--radius-5);
   padding-block: 9px;
   cursor: pointer;
-  transition: background 200 ease-in-out;
+  transition: background 200ms ease-in-out;
 }
 
 .reset-btn:hover,
