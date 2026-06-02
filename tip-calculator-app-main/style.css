@@ -1,0 +1,352 @@
+/* space-mono-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/space-mono-v17-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+:root {
+  --c-green-900: hsl(183, 100%, 15%);
+  --c-green-800: hsl(183, 85%, 21%);
+  --c-green-750: hsl(183, 79%, 24%);
+  --c-green-400: hsl(172, 67%, 45%);
+  --c-green-200: hsl(173, 61%, 77%);
+  --c-grey-600: hsl(180, 25%, 32%);
+  --c-grey-550: hsl(180, 18%, 40%);
+  --c-grey-500: hsl(186, 14%, 43%);
+  --c-grey-400: hsl(184, 14%, 56%);
+  --c-grey-300: hsl(184, 19%, 68%);
+  --c-grey-200: hsl(185, 41%, 84%);
+  --c-grey-50: hsl(189, 47%, 97%);
+  --c-white: hsl(0, 100%, 100%);
+  --c-black: hsl(0, 0%, 0%);
+  --c-orange: hsl(13, 70%, 60%);
+
+  --color-main-bg: var(--c-grey-200);
+  --color-form-bg: var(--c-white);
+  --color-result-bg: var(--c-green-900);
+  --color-btn-bg: var(--c-green-900);
+  --color-btn-bg-hover: var(--c-green-200);
+  --color-invalid: var(--c-orange);
+  --color-valid: var(--c-green-400);
+  --color-text-light: var(--c-white);
+  --color-text-med-light: var(--c-grey-400);
+  --color-text-med-dark: var(--c-grey-500);
+  --color-text-dark: var(--c-green-900);
+  --color-text-result: var(--c-green-400);
+  --color-result-btn-bg: var(--c-green-400);
+  --color-result-btn-bg-hover: var(--c-green-200);
+  --color-text-custom: var(--c-grey-550);
+  --color-bill-number-custom-bg: var(--c-grey-50);
+  --color-input-hover: var(--c-green-400);
+  --color-invalid: var(--c-orange);
+
+  --ff: "Space Mono", monospace;
+  --fs-48: calc(48 / 16 * 1rem);
+  --fs-32: calc(32 / 16 * 1rem);
+  --fs-24: calc(24 / 16 * 1rem);
+  --fs-20: calc(20 / 16 * 1rem);
+  --fs-16: calc(16 / 16 * 1rem);
+  --fs-13: calc(13 / 16 * 1rem);
+
+  --lh-48: calc(71 / 48);
+  --lh-32: calc(47 / 32);
+  --lh-24: calc(36 / 24);
+  --lh-20: calc(30 / 20);
+  --lh-16: calc(24 / 16);
+  --lh-13: calc(19 / 13);
+
+  --letter-space-48: -1px;
+  --letter-space-32: -0.67px;
+  --radius-5: 5px;
+  --radius-15: 15px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: var(--ff);
+  background-color: var(--color-main-bg);
+  color: var(--color-text-light);
+  font-size: var(--fs-24);
+  line-height: var(--lh-24);
+}
+
+label,
+input {
+  display: block;
+  width: 100%;
+  font: inherit;
+  line-height: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.wrapper {
+  padding-block-end: 0px;
+  display: grid;
+  @media (width >= calc(700 / 16 * 1rem)) {
+    padding-block-end: 80px;
+    grid-template-columns:
+      1fr min(calc(100% - 160px), calc(920 / 16 * 1rem))
+      1fr;
+  }
+  @media (width >= calc(1200 / 16 * 1rem)) {
+    padding-block-end: 239px;
+  }
+  > * {
+    grid-column: 2;
+  }
+}
+
+.tip-calculator {
+  background-color: var(--color-form-bg);
+  border-radius: 25px;
+}
+
+.tip-calculator__wrapper {
+  row-gap: 40px;
+  display: grid;
+  border-radius: 25px;
+  padding-inline: 24px;
+  padding-block: 34px;
+  @media (width >= calc(700 / 16 * 1rem)) {
+    padding-block: 54px;
+    padding-inline: 75.5px;
+  }
+  @media (width >= calc(1200 / 16 * 1rem)) {
+    grid-template-columns: repeat(2, auto);
+    gap: 48px;
+    padding-block: 32px;
+    padding-inline: 40px;
+  }
+}
+
+.tip-calculator__entries {
+  @media (width >= calc(1200 / 16 * 1rem)) {
+    padding-block-start: 16.5px;
+  }
+}
+
+.header__logo {
+  display: block;
+  margin-inline: auto;
+  margin-block: 50px 40.86px;
+  @media (width >= calc(1200 / 16 * 1rem)) {
+    margin-block: 163px 87.86px;
+  }
+}
+
+label {
+  font-size: var(--fs-16);
+  line-height: var(--lh-16);
+  color: var(--color-text-med-dark);
+  margin-block-end: 8px;
+}
+
+input {
+  text-align: right;
+  color: var(--color-text-dark);
+  padding-inline: 17px;
+  border: none;
+  border-radius: var(--radius-5);
+}
+
+input::placeholder {
+  color: var(--color-text-dark);
+}
+
+input:focus,
+input:active {
+  outline: 1px solid var(--color-input-hover);
+}
+
+.bill {
+  background: var(--color-bill-number-custom-bg)
+    url("./assets/images/icon-dollar.svg");
+  background-repeat: no-repeat;
+  background-position: 17px center;
+}
+.people-number {
+  background: var(--color-bill-number-custom-bg)
+    url("./assets/images/icon-person.svg");
+  background-repeat: no-repeat;
+  background-position: 17px center;
+}
+.tip-calculator__btns-wrapper {
+  padding-block: 32px;
+
+  @media (width >= calc(700 / 16 * 1rem)) {
+    padding-block: 24px;
+  }
+
+  @media (width >= calc(1200 / 16 * 1rem)) {
+    padding-block: 40px;
+  }
+}
+
+.tip-calculator__btns {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  @media (width >= calc(700 / 16 * 1rem)) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+
+.button {
+  /* width: max-content; */
+  border: none;
+  border-radius: var(--radius-5);
+  font-size: var(--fs-24);
+  line-height: var(--lh-24);
+  padding-block: 6px;
+  padding-inline: 25.83px;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+}
+
+.tip-calculator__btn {
+  background-color: var(--color-btn-bg);
+  color: var(--color-text-light);
+}
+.tip-calculator__btn:hover,
+.tip-calculator__btn:active {
+  background-color: var(--color-btn-bg-hover);
+  color: var(--color-text-dark);
+}
+
+.custom-input {
+  color: var(--color-text-dark);
+  background-color: var(--color-bill-number-custom-bg);
+}
+
+.custom-input::placeholder {
+  color: var(--color-text-custom);
+}
+
+.tip-calculator__results {
+  background-color: var(--color-result-bg);
+  border-radius: var(--radius-15);
+  padding-inline: 23px;
+  padding-block: 29.5px;
+  @media (width >= calc(700 / 16 * 1rem)) {
+    padding-inline: 47.5px;
+    padding-block: 43px;
+  }
+  @media (width >= calc(1200 / 16 * 1rem)) {
+    padding-inline: 40px;
+    padding-block: 37.5px;
+  }
+}
+
+.validation-dv {
+  position: relative;
+}
+
+.in-valid-span {
+  color: var(--color-invalid);
+  font-size: var(--fs-16);
+  line-height: var(--lh-16);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.in-valid {
+  outline: 1px solid var(--color-invalid);
+}
+
+.hidden {
+  display: none;
+}
+
+.layout-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tip-calculator__result-amount {
+  padding-block-end: 24px;
+
+  @media (min-width: calc(700 / 16 * 1rem)) and (max-width: calc(1200 / 16 * 1rem)) {
+    padding-block-end: 8px;
+  }
+}
+
+.tip-calculator__result-total {
+  padding-block-end: 32px;
+
+  @media (min-width: calc(700 / 16 * 1rem)) {
+    padding-block-end: 16px;
+  }
+  @media (min-width: calc(1200 / 16 * 1rem)) {
+    padding-block-end: 128px;
+  }
+}
+
+.tip-calculator__result-amount-title,
+.tip-calculator__result-total-title {
+  font-size: var(--fs-16);
+  line-height: var(--lh-16);
+}
+
+.layout-grid span {
+  font-size: var(--fs-13);
+  line-height: var(--lh-13);
+  color: var(--color-text-med-light);
+}
+
+.tip-calculator__result-amount-value,
+.tip-calculator__result-total-value {
+  color: var(--color-text-result);
+  font-size: var(--fs-32);
+  line-height: var(--lh-32);
+  letter-spacing: var(--letter-space-32);
+
+  @media (width >= calc(700 / 16 * 1rem)) {
+    font-size: var(--fs-48);
+    line-height: var(--lh-4--fs-48);
+    letter-spacing: var(--letter-space-4--fs-48);
+  }
+
+  @media (width >= calc(1200 / 16 * 1rem)) {
+    padding-inline-start: 96px;
+  }
+}
+
+.reset-btn {
+  width: 100%;
+  text-transform: uppercase;
+  font-family: inherit;
+  font-size: var(--fs-20);
+  line-height: var(--lh-20);
+  color: var(--color-text-dark);
+  background-color: var(--color-result-btn-bg);
+  border: none;
+  border-radius: var(--radius-5);
+  padding-block: 9px;
+  cursor: pointer;
+  transition: background 200 ease-in-out;
+}
+
+.reset-btn:hover,
+.reset-btn:active {
+  background-color: var(--color-result-btn-bg-hover);
+}

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Tip calculator app</title>
+
+    <style>
+      .attribution {
+        font-size: 0.6875rem;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <h1 class="visually-hidden">Tip Calculator</h1>
+    <header>
+      <img
+        class="header__logo"
+        src="./assets/images/logo.svg"
+        alt="image of the logo called SPILTTER"
+        width="87"
+        height="54"
+      />
+    </header>
+    <main class="wrapper">
+      <section class="tip-calculator">
+        <div class="tip-calculator__wrapper">
+          <div class="tip-calculator__entries">
+            <h2 class="visually-hidden">Tip Entries</h2>
+            <div class="validation-dv">
+              <label for="bill">Bill</label>
+
+              <input
+                type="number"
+                id="bill"
+                class="bill"
+                placeholder="0"
+                min="0"
+              />
+              <span class="hidden in-valid-span" id="invalidBill"></span>
+            </div>
+
+            <div class="tip-calculator__btns-wrapper">
+              <label for="tipPercentageBtn">Select Tip %</label>
+              <div class="tip-calculator__btns">
+                <button
+                  data-tip-percentage="5"
+                  class="button tip-calculator__btn"
+                >
+                  5%</button
+                ><button
+                  data-tip-percentage="10"
+                  class="button tip-calculator__btn"
+                >
+                  10%</button
+                ><button
+                  data-tip-percentage="15"
+                  class="button tip-calculator__btn"
+                >
+                  15%</button
+                ><button
+                  data-tip-percentage="25"
+                  class="button tip-calculator__btn"
+                >
+                  25%</button
+                ><button
+                  data-tip-percentage="50"
+                  class="button tip-calculator__btn"
+                >
+                  50%
+                </button>
+                <label for="customInput" class="visually-hidden"></label
+                ><input
+                  class="custom-input"
+                  type="number"
+                  id="customInput"
+                  min="1"
+                  placeholder="Custom"
+                />
+              </div>
+            </div>
+            <div class="validation-dv">
+              <label for="peopleNumber">Number of People</label>
+              <input
+                type="number"
+                class="people-number"
+                id="peopleNumber"
+                placeholder="0"
+                min="0"
+              />
+              <span class="hidden in-valid-span" id="invalidPeope"></span>
+            </div>
+          </div>
+          <div class="tip-calculator__results">
+            <h2 class="visually-hidden">Tip Results</h2>
+            <div class="tip-calculator__result-amount layout-grid">
+              <div>
+                <h3 class="tip-calculator__result-amount-title">Tip Amount</h3>
+                <span>/ person</span>
+              </div>
+              <p class="tip-calculator__result-amount-value">$0.00</p>
+            </div>
+            <div class="tip-calculator__result-total layout-grid">
+              <div>
+                <h3 class="tip-calculator__result-total-title">Total</h3>
+                <span>/ person</span>
+              </div>
+              <p class="tip-calculator__result-total-value">$0.00</p>
+            </div>
+
+            <button class="reset-btn" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
