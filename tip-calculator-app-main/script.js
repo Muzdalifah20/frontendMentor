@@ -47,7 +47,7 @@ function updateDisplay(element, value) {
 
 // Reset Dispaly helper
 function clearDisplay(element) {
-  element.textContent = `$${0.0}`;
+  element.textContent = formatCurrency(0);
 }
 
 function clearDisplayInput(input) {
