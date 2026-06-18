@@ -3,6 +3,7 @@ const sliderValue = document.querySelector("#passwordLengthValue");
 const checkBoxes = document.querySelectorAll("input[name='char']");
 const passwordGeneratorBtn = document.querySelector("#passwordGeneratorBtn");
 const passwordDisplay = document.querySelector("#passwordDisplay");
+const copyIconBtn = document.querySelector(".password-display__copy-btn");
 const copyIcon = document.querySelector("#copyIcon");
 const strengthValueP = document.querySelector("#strengthValueP");
 const optionsStrengthSquares = document.querySelector(
@@ -93,7 +94,7 @@ function getCharTypes() {
     availableCharacters += symbols;
     charactersRange += 32;
   }
-  if (availableCharacters == "") {
+  if (availableCharacters === "") {
     availableCharacters += upperCase;
     charactersRange += 26;
   }
@@ -171,7 +172,7 @@ if (passwordGeneratorBtn) {
   });
 }
 
-if (copyIcon) {
+if (copyIconBtn) {
   copyIcon.addEventListener("click", () => {
     handleCopy(generatedPasswordValue);
   });
