@@ -116,9 +116,9 @@ function handleCopy(generatedPasswordValue) {
   if (!navigator || !navigator.clipboard) return;
   navigator.clipboard
     .writeText(generatedPasswordValue)
-    .then(showCopyMessage())
+    .then(showCopyMessage)
     .catch((error) => {
-      alert("Failed to Copy to clipboard!");
+      alert("Failed to Copy to clipboard. Please copy manually!");
     });
 }
 
@@ -156,17 +156,23 @@ function showStrengthLevel(strengthLevelText, strengthLevelClass) {
   optionsStrengthSquares.classList.add(strengthLevelClass);
 }
 
-slider.addEventListener("input", (e) => {
-  updatePasswordLength(e);
-  handleSlider(e);
-});
+if (slider) {
+  slider.addEventListener("input", (e) => {
+    updatePasswordLength(e);
+    handleSlider(e);
+  });
+}
 
-passwordGeneratorBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  hideCopyMessage();
-  generatePassword();
-});
+if (passwordGeneratorBtn) {
+  passwordGeneratorBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    hideCopyMessage();
+    generatePassword();
+  });
+}
 
-copyIcon.addEventListener("click", () => {
-  handleCopy(generatedPasswordValue);
-});
+if (copyIcon) {
+  copyIcon.addEventListener("click", () => {
+    handleCopy(generatedPasswordValue);
+  });
+}
