@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -12,8 +12,8 @@
     />
 
     <title>Frontend Mentor | Password generator app</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./main.css" />
+    <script src="./main.js" defer></script>
   </head>
   <body>
     <main>
@@ -24,16 +24,16 @@
             <h2
               class="password-display__password"
               id="passwordDisplay"
-              role="status"
               aria-live="polite"
+              aria-atomic="true"
             >
               P4$5W0rD!
             </h2>
             <div class="password-display__copy-container">
               <p
                 class="password-display__copy-message hidden"
-                aria-hidden="true"
                 aria-live="polite"
+                aria-atomic="true"
               >
                 copied
               </p>
@@ -66,7 +66,7 @@
                 <div class="option-slider__header">
                   <label
                     class="password-display__label"
-                    for="passwordLengthValue"
+                    for="passwordLengthInput"
                     >Character Length</label
                   >
                   <p class="password-display__value" id="passwordLengthValue">
@@ -146,22 +146,10 @@
                     aria-live="polite"
                   ></p>
                   <div class="options-strength__squares" aria-hidden="true">
-                    <span
-                      class="options-strength__square options-strength__square--too-week"
-                      id="tooWeek"
-                    ></span
-                    ><span
-                      class="options-strength__square options-strength__square--week"
-                      id="week"
-                    ></span
-                    ><span
-                      class="options-strength__square options-strength__square--medium"
-                      id="medium"
-                    ></span
-                    ><span
-                      class="options-strength__square options-strength__square--strong"
-                      id="strong"
-                    ></span>
+                    <span class="options-strength__square"></span
+                    ><span class="options-strength__square"></span
+                    ><span class="options-strength__square"></span
+                    ><span class="options-strength__square"></span>
                   </div>
                 </div>
               </div>
