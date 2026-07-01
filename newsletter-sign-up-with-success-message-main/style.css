@@ -238,6 +238,10 @@ input::placeholder {
   );
 }
 
+.hidden {
+  display: none;
+}
+
 .success__content {
   display: grid;
   place-content: center;
@@ -261,8 +265,4 @@ input::placeholder {
   @media (width >= calc(700 / 16 * 1rem)) {
     padding-block-end: 32px;
   }
-}
-
-.success {
-  display: none;
 }

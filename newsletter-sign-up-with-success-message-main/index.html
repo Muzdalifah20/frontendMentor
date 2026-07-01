@@ -77,7 +77,7 @@
             <form action="/" class="form" novalidate>
               <div class="form__validation">
                 <label for="email">Email address</label>
-                <p id="inValid"></p>
+                <p id="emailError" aria-live="polite"></p>
               </div>
               <input
                 type="email"
@@ -86,6 +86,8 @@
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
                 placeholder="email@company.com"
                 required
+                aria-describedby="emailError"
+                aria-invalid="true"
               />
               <button class="button" id="subscribeBtn">
                 Subscribe to monthly newsletter
@@ -94,7 +96,11 @@
           </div>
         </div>
       </section>
-      <section class="success wrapper">
+      <section
+        class="success wrapper hidden"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         <div class="success__content">
           <img
             class="success__image"
