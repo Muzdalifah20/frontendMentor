@@ -29,27 +29,28 @@ form.addEventListener("submit", (e) => {
     email.value = "";
     successStyle();
   }
-
-  function showError(message) {
-    inValidP.textContent = message;
-    inValidP.classList.add("in-valid-message");
-    email.classList.add("in-valid");
-  }
-
-  function clearError() {
-    inValidP.textContent = "";
-    inValidP.classList.remove("in-valid-message");
-    email.classList.remove("in-valid");
-  }
-
-  function successStyle() {
-    signup.style.display = "none";
-    success.style.display = "block";
-  }
 });
+
+function showError(message) {
+  inValidP.textContent = message;
+  inValidP.classList.add("in-valid-message");
+  email.classList.add("in-valid");
+}
+
+function clearError() {
+  inValidP.textContent = "";
+  inValidP.classList.remove("in-valid-message");
+  email.classList.remove("in-valid");
+}
+
+function successStyle() {
+  signup.style.display = "none";
+  success.style.display = "block";
+}
 
 email.addEventListener("input", () => {
   email.classList.remove("in-valid");
+  clearError();
 });
 
 dismissmessageBtn.addEventListener("click", (e) => {
