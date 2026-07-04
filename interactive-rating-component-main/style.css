@@ -1,0 +1,282 @@
+/* overpass-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Overpass";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/overpass-v19-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* overpass-500 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Overpass";
+  font-style: normal;
+  font-weight: 500;
+  src: url("./assets/fonts/overpass-v19-latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* overpass-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Overpass";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/overpass-v19-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+:root {
+  --c-orange-500: hsl(25, 97%, 53%);
+  --c-white: hsl(0, 100%, 100%);
+  --c-black: hsl(0, 0%, 0%);
+  --c-grey-500: hsl(217, 12%, 63%);
+  --c-grey-900: hsl(213, 19%, 18%);
+  --c-grey-950: hsl(216, 12%, 8%);
+  --c-gradient-1: hsl(215, 20%, 17%);
+  --c-gradient-2: hsl(216, 24%, 12%);
+
+  --color-card-bg: linear-gradient(
+    to right,
+    var(--c-gradient-1),
+    var(--c-gradient-2)
+  );
+  --color-text-dark: var(--c-grey-950);
+  --color-text-med: var(--c-grey-500);
+  --color-text-light: var(--c-white);
+  --color-text-orange: var(--c-orange-500);
+  --color-rating-btn-bg: var(--c-grey-900);
+  --color-rating-btn-hover: var(--c-orange-500);
+  --color-rating-btn-selected: var(--c-white);
+  --color-submit-btn-bg: var(--c-orange-500);
+  --color-submit-btn-hover: var(--c-white);
+
+  --ff: "Overpass", Arial, Helvetica, sans-serif;
+  --fw-bold: 700;
+  --fw-semibold: 500;
+  --fs-28: calc(28 / 16 * 1rem);
+  --fs-24: calc(24 / 16 * 1rem);
+  --fs-16: calc(16 / 16 * 1rem);
+  --fs-15: calc(15 / 16 * 1rem);
+  --fs-14: calc(14 / 16 * 1rem);
+
+  --lh-28: calc(35 / 28 * 1rem);
+  --lh-24: calc(30 / 24 * 1rem);
+  --lh-16: calc(24 / 16 * 1rem);
+  --lh-15-regular: calc(24 / 15 * 1rem);
+  --lh-15-bold: calc(19 / 15 * 1rem);
+  --lh-14-regular: calc(22 / 14 * 1rem);
+  --lh-14-semibold: calc(24 / 14 * 1rem);
+  --lh-14-bold: calc(18 / 14 * 1rem);
+
+  --ls-16: 0.2px;
+  --ls-15-regular: 0;
+  --ls-15-bold: 2px;
+  --ls-14-regular: 0;
+  --ls-14-semibold: 0.17px;
+  --ls-14-bold: 1.87px;
+
+  --radius-22: 22.5px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--ff);
+  background-color: var(--c-grey-950);
+  color: var(--c-grey-500);
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: auto;
+  height: auto;
+}
+
+.wrapper {
+  display: grid;
+
+  grid-template-columns: 1fr calc(100% - 48px) 1fr;
+  margin-block: 153px;
+
+  @media (width > calc(700 / 16 * 1rem)) {
+    grid-template-columns: 1fr 412px 1fr;
+    margin-block: 192px;
+  }
+
+  > * {
+    grid-column: 2;
+  }
+}
+
+.rating {
+  display: grid;
+
+  gap: 24px;
+  background: var(--color-card-bg);
+  padding: 24px;
+  border-radius: 8px;
+  @media (width > calc(700 / 16 * 1rem)) {
+    gap: 32px;
+    padding: 24px 32px;
+    border-radius: 16px;
+  }
+}
+
+.rating__star-icon-wrapper {
+  display: grid;
+  place-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--c-grey-900);
+  border-radius: 50%;
+  @media (width > calc(700 / 16 * 1rem)) {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.rating__content {
+  display: grid;
+  gap: 16px;
+}
+
+h2 {
+  font-size: var(--fs-24);
+  line-height: var(--lh-24);
+  color: var(--color-text-light);
+
+  @media (width > calc(700 / 16 * 1rem)) {
+    font-size: var(--fs-28);
+    line-height: var(--lh-28);
+  }
+}
+
+p {
+  font-size: var(--fs-14);
+  line-height: var(--lh-14-regular);
+
+  @media (width > calc(700 / 16 * 1rem)) {
+    font-size: var(--fs-15);
+    line-height: var(--lh-15-regular);
+  }
+}
+
+.rating[hidden] {
+  display: none;
+}
+
+.rating__options {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  @media (width > calc(700 / 16 * 1rem)) {
+    gap: 24px;
+  }
+}
+
+.rating__option {
+  position: relative;
+  display: grid;
+  place-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-rating-btn-bg);
+  cursor: pointer;
+  @media (width > calc(700 / 16 * 1rem)) {
+    width: 51px;
+    height: 51px;
+  }
+}
+
+.rating__option:hover,
+.rating__option:focus-within {
+  background: var(--color-rating-btn-hover);
+}
+
+.rating__option:has(input[type="radio"]:focus-visible) {
+  background: var(--color-rating-btn-hover);
+}
+
+.rating__option:has(input[type="radio"]:checked) {
+  background: var(--color-rating-btn-selected);
+}
+
+.rating__option label {
+  cursor: pointer;
+}
+
+.rating__option input {
+  position: absolute;
+  opacity: 0;
+  width: auto;
+  height: auto;
+}
+
+.rating__submit-btn {
+  border: none;
+  text-transform: uppercase;
+  color: var(--color-text-dark);
+  background-color: var(--color-submit-btn-bg);
+  font-size: var(--fs-14);
+  line-height: var(--lh-14-bold);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-14-bold);
+  border-radius: 22.5px;
+  padding-block: 15px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  @media (width > calc(700 / 16 * 1rem)) {
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-14-semibold);
+    letter-spacing: var(--ls-14-semibold);
+    padding-block: 12.5px;
+  }
+}
+
+.rating__submit-btn:hover,
+.rating__submit-btn:active,
+.rating__submit-btn:focus {
+  color: var(--color-text-dark);
+  background-color: var(--color-submit-btn-hover);
+}
+
+.rating-thank-you {
+  display: grid;
+  gap: 24px;
+  place-items: center;
+  padding: 32px 24px;
+  background: var(--color-card-bg);
+  border-radius: 8px;
+  @media (width > calc(700 / 16 * 1rem)) {
+    gap: 32px;
+    padding: 40px 32px;
+    border-radius: 16px;
+  }
+}
+
+.rating-thank-you[hidden] {
+  display: none;
+}
+
+.rating-thank-you__feedback {
+  background: var(--c-grey-900);
+  padding-block: 6px;
+  padding-inline: 19.5px;
+  border-radius: 22.5px;
+}
+
+#ratingFeedback {
+  color: var(--color-text-orange);
+}
+
+.rating-thank-you__text {
+  display: grid;
+  gap: 16px;
+  text-align: center;
+}
