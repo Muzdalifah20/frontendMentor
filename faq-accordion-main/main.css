@@ -1,0 +1,203 @@
+/* work-sans-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/work-sans-v24-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* work-sans-600 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./assets/fonts/work-sans-v24-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* work-sans-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/work-sans-v24-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+:root {
+  --c-white: hsl(0, 100%, 100%);
+  --c-black: hsl(0, 0%, 0%);
+  --c-purple-100: hsl(275, 100%, 97%);
+  --c-purple-600: hsl(292, 16%, 49%);
+  --c-purple-950: hsl(292, 42%, 14%);
+  --c-violet-600: hsl(281, 83%, 54%);
+
+  --ff: "Work Sans", Arial, Helvetica, sans-serif;
+  --fw-bold: 700;
+  --fw-semibold: 600;
+
+  --fs-56: calc(56 / 16 * 1rem);
+  --fs-32: calc(32 / 16 * 1rem);
+  --fs-18: calc(18 / 16 * 1rem);
+  --fs-16: calc(16 / 16 * 1rem);
+
+  --lh-56: calc(66 / 56);
+  --lh-18: calc(21 / 18);
+  --lh-16: calc(24 / 16);
+  --lh-14: 1.5;
+
+  --color-main-bg: var(--c-purple-100);
+  --color-card-bg: var(--c-white);
+  --color-text-dark: var(--c-black);
+  --color-text-light: var(--c-purple-600);
+  --color-text-violet: var(--c-violet-600);
+  --color-btn-bg: var(--c-violet-600);
+  --color-btn-active: var(--c-black);
+  --color-btn-text: var(--c-white);
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  position: relative;
+  font-family: var(--ff);
+  /* background-color: var(--color-main-bg); */
+  min-height: 100vh;
+  background:
+    url("./assets/images/background-pattern-mobile.svg") left 0% no-repeat,
+    var(--color-main-bg) 33.33%;
+  background-size: 100%;
+
+  @media (width > calc(700 / 16 * 1rem)) {
+    background:
+      url("./assets/images/background-pattern-desktop.svg") left 0% no-repeat,
+      var(--color-main-bg) 30%;
+  }
+
+  @media (width > calc(1400 / 16 * 1rem)) {
+    background-size: 100%;
+  }
+}
+
+button {
+  border: none;
+  width: 100%;
+  font: inherit;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr calc(100% - 48px) 1fr;
+  @media (width > calc(700 / 16 * 1rem)) {
+    grid-template-columns: 1fr 600px 1fr;
+  }
+
+  > * {
+    grid-column: 2;
+  }
+}
+
+.faqs-accordion__wrapper {
+  background-color: var(--color-card-bg);
+  margin-block: 130.5px;
+  padding: 24px;
+  border-radius: 8px;
+  display: grid;
+  gap: 24px;
+  @media (width > calc(700 / 16 * 1rem)) {
+    margin-block: 167.5px;
+    padding: 40px;
+    border-radius: 16px;
+    gap: 32px;
+  }
+}
+
+.faqs-accordion__section {
+  border-bottom: 1px solid var(--c-purple-100);
+}
+
+.faqs-accordion__section:last-child {
+  border-bottom: none;
+}
+
+.faqs-accordion__title {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.faqs-accordion__title-text {
+  font-size: var(--fs-32);
+
+  @media (width > calc(700 / 16 * 1rem)) {
+    font-size: 56px;
+    line-height: 56x;
+  }
+}
+
+.faqs-accordion__star-icon {
+  width: 24px;
+  height: 24px;
+  @media (width > calc(700 / 16 * 1rem)) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.faqs-accordion__header {
+  margin-block-end: 24px;
+}
+.faqs-accordion dl:last-child .faqs-accordion__header {
+  margin-block-end: 0;
+}
+
+.faqs-accordion__header-btn {
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--color-text-dark);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-16);
+  line-height: var(--lh-16);
+  @media (width < calc(700 / 16 * 1rem)) {
+    /* max-width: 25ch; */
+  }
+  @media (width > calc(700 / 16 * 1rem)) {
+    gap: 41px;
+    font-size: var(--fs-18);
+    line-height: var(--lh-18);
+  }
+  cursor: pointer;
+}
+
+.faqs-accordion__header-btn:hover,
+.faqs-accordion__header-btn:focus,
+.faqs-accordion__header-btn:active {
+  color: var(--color-text-violet);
+}
+
+.faqs-accordion__header-btn span {
+  text-align: left;
+}
+
+.faqs-accordion__plus-minus-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.faqs-accordion__panel {
+  color: var(--color-text-light);
+  font-size: var(--fs-14);
+  line-height: var(--lh-14);
+  padding-block-end: 24px;
+  @media (width > calc(700 / 16 * 1rem)) {
+    font-size: var(--fs-16);
+    line-height: var(--lh-16);
+  }
+}
