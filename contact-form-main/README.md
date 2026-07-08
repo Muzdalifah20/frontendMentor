@@ -20,8 +20,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add your solution link here](https://your-solution-url.com)
-- Live Site URL: [Add your live site link here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/Muzdalifah20/frontendMentor/tree/main/contact-form-main](https://your-solution-url.com)
+- Live Site URL: [https://muzdalifah20.github.io/frontendMentor/contact-form-main/](https://your-live-site-url.com)
 
 ## My process
 
@@ -77,8 +77,8 @@ document.addEventListener(
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- GitHub - [your-github](https://github.com/your-github)
+- Frontend Mentor - [https://www.frontendmentor.io/profile/Muzdalifah20](https://www.frontendmentor.io/profile/yourusername)
+- GitHub - [https://github.com/Muzdalifah20](https://github.com/your-github)
 
 ## Acknowledgments
 
