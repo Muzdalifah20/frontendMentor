@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Contact form</title>
+
+    <style>
+      .attribution {
+        font-size: 0.6875rem;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+    <link rel="stylesheet" href="./main.css" />
+    <script src="./main.js" defer></script>
+  </head>
+  <body>
+    <a href="#mainContent" class="visually-hidden skip-link"
+      >Skip to the main content</a
+    >
+    <h1 class="visually-hidden">Contact Form</h1>
+
+    <main id="mainContent" class="wrapper">
+      <section class="contact-form__section">
+        <h2 class="contact-form__title">Contact Us</h2>
+        <form action="" class="contact-form" novalidate>
+          <div class="contact-form__row">
+            <label for="honeypot" hidden class="honeypot"></label>
+            <input
+              hidden
+              type="text"
+              class="honeypot"
+              id="honeypot"
+              tabindex="-1"
+              autocomplete="off"
+            />
+
+            <div class="contact-form__name-group">
+              <div class="contact-form__group">
+                <label for="firstName">First Name <span>*</span></label>
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  required
+                  autocomplete="given-name"
+                  aria-required="true"
+                  aria-describedby="firstNameValidation"
+                />
+                <p id="firstNameValidation"></p>
+              </div>
+              <div class="contact-form__group">
+                <label for="lastName">Last Name <span>*</span></label>
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  required
+                  autocomplete="family-name"
+                  aria-required="true"
+                  aria-describedby="lastNameValidation"
+                />
+                <p id="lastNameValidation"></p>
+              </div>
+            </div>
+            <div class="contact-form__group">
+              <label for="email">Email Address <span>*</span></label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                required
+                autocomplete="email"
+                aria-required="true"
+                aria-describedby="emailValidation"
+              />
+              <p id="emailValidation"></p>
+            </div>
+            <fieldset class="contact-form__radio-group">
+              <legend id="queryTypeLabel">Query Type <span>*</span></legend>
+              <div class="contact-form__radio-options">
+                <div class="contact-form__radio-option">
+                  <input
+                    type="radio"
+                    name="queryType"
+                    id="generalEnquiry"
+                    value="general"
+                    required
+                    aria-required="true"
+                    aria-describedby="radioValidation"
+                  />
+                  <label for="generalEnquiry">General Enquiry</label>
+                </div>
+                <div class="contact-form__radio-option">
+                  <input
+                    type="radio"
+                    name="queryType"
+                    id="supportRequest"
+                    value="support"
+                    required
+                    aria-required="true"
+                    aria-describedby="radioValidation"
+                  />
+                  <label for="supportRequest">Support Request</label>
+                </div>
+              </div>
+              <p id="radioValidation"></p>
+            </fieldset>
+            <div class="contact-form__group">
+              <label for="message">Message <span>*</span></label>
+              <textarea
+                name="message"
+                id="message"
+                rows="3"
+                required
+                autocomplete="off"
+                aria-required="true"
+                aria-describedby="messageValidation"
+              ></textarea>
+              <p id="messageValidation"></p>
+            </div>
+          </div>
+          <div class="contact-form__consent-group">
+            <div class="contact-form__consent-group-row">
+              <input
+                type="checkbox"
+                name="consent"
+                id="consent"
+                required
+                aria-required="true"
+                aria-describedby="consentValidation"
+              />
+              <label for="consent"
+                >I consent to being contacted by the team <span>*</span></label
+              >
+            </div>
+            <p id="consentValidation"></p>
+          </div>
+          <button type="submit" class="contact-form__btn">Submit</button>
+        </form>
+      </section>
+      <section
+        class="success-message__section"
+        hidden
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <div class="success-message__header">
+          <img
+            src="./assets/images/icon-success-check.svg"
+            width="20"
+            height="21"
+            alt=""
+          />
+          <h3>Message Sent!</h3>
+        </div>
+        <p>Thanks for completing the form. We'll be in touch soon!</p>
+      </section>
+    </main>
+  </body>
+</html>
