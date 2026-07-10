@@ -38,13 +38,17 @@ function closeMobileMenu() {
   setTimeout(() => {
     topNavMenu.classList.remove("remove-transition");
   }, 500);
-  console.log("closed");
 }
 
 setupTopNav(mobileTabMedia);
 
-btnOpen.addEventListener("click", openMobileMenu);
-btnClose.addEventListener("click", closeMobileMenu);
+if (btnOpen) {
+  btnOpen.addEventListener("click", openMobileMenu);
+}
+
+if (btnClose) {
+  btnClose.addEventListener("click", closeMobileMenu);
+}
 mobileTabMedia.addEventListener("change", function (e) {
   setupTopNav(e.target);
 });

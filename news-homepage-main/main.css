@@ -254,6 +254,9 @@ p {
 button {
   background: none;
   border: none;
+}
+
+.button {
   @media (width > calc(1200 / 16 * 1rem)) {
     display: none;
   }
