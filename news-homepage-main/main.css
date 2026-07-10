@@ -509,7 +509,7 @@ button {
   color: var(--color-text-heading-hover);
 }
 
-.popular-article__link:focus-visible .popular-article__title {
+.popular-article__link:focus-visible {
   outline: 2px solid var(--color-text-heading-hover);
   outline-offset: 3px;
 }
