@@ -32,8 +32,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add your solution URL here](https://github.com/Muzdalifah20/frontendMentor/tree/main/news-homepage-main)
-- Live Site URL: [Add your live site URL here](https://muzdalifah20.github.io/frontendMentor/news-homepage-main/)
+- Solution URL: [Code](https://github.com/Muzdalifah20/frontendMentor/tree/main/news-homepage-main)
+- Live Site URL: [Live site](https://muzdalifah20.github.io/frontendMentor/news-homepage-main/)
 
 ## My process
 
