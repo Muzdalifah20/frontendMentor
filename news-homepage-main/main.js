@@ -4,7 +4,6 @@ const mobileTabMedia = window.matchMedia("(width < calc(1200 / 16 * 1rem))");
 const topNavMenu = document.querySelector(".topnav__menu");
 const mainContent = document.querySelector("#mainContent");
 const body = document.querySelector("body");
-console.log(btnClose);
 
 // https://www.youtube.com/watch?v=pBv7igaxfQE
 function setupTopNav(e) {
@@ -31,7 +30,7 @@ function openMobileMenu() {
 function closeMobileMenu() {
   if (!btnClose) return;
   btnOpen.setAttribute("aria-expanded", "false");
-  topNavMenu.setAttribute("inert", "");
+  // topNavMenu.setAttribute("inert", "");
   mainContent.removeAttribute("inert");
   bodyScrollLockUpgrade.enableBodyScroll(body);
   btnOpen.focus();
